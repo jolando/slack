@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'slack';
+
+  printUser(event) {
+    console.log(event);
+}
+
+  printError(event) {
+    console.error(event);
+}
 }
