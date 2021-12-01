@@ -8,11 +8,29 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from './pages/login/login.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+
+
+import {MatTreeModule} from '@angular/material/tree';
+import {MatInputModule} from '@angular/material/input';
+
+
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    MenuComponent,
+
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -46,6 +64,14 @@ import { environment } from 'src/environments/environment';
       enableEmailVerification: true, // default: true
       useRawUserCredential: true, // If set to true outputs the UserCredential object instead of firebase.User after login and signup - Default: false
     }),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTreeModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

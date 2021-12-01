@@ -1,0 +1,8 @@
+<div class="container">
+  <ngx-auth-firebaseui
+  [guestEnabled]="true"
+  appearance="legacy"
+  [providers]="[ providers.Github]"
+  class="width" (onSuccess)="printUser($event)" (onError)="printError($event)">
+  </ngx-auth-firebaseui>
+</div>
