@@ -9,8 +9,21 @@
   </form>
   <div class="spacer"></div>
   <mat-icon>help</mat-icon>
-  <mat-icon>account_circle</mat-icon>
+
+  <button mat-button [matMenuTriggerFor]="beforeMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu  class="menu-settings" #beforeMenu="matMenu" xPosition="before">
+    <!-- <button mat-button (click)="openDialog()">open dialog</button> -->
+
+
+    <span mat-menu-item><mat-slide-toggle  (click)="toggleDarkMode()" [(ngModel)]="isDarkMode"
+      >Dark mode</mat-slide-toggle
+    ></span>
+    <button mat-menu-item (click)="signOut()">Abmelden</button>
+  </mat-menu>
 </mat-toolbar>
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
@@ -21,6 +34,7 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar class="slack-space">Menu</mat-toolbar>
+
     <hr />
     <mat-nav-list>
       <a mat-list-item href="#">Threads</a>
@@ -69,14 +83,15 @@
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async"
       >
-        <mat-icon aria-label="Side nav toggle icon">keyboard_double_arrow_right</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon"
+          >keyboard_double_arrow_right</mat-icon
+        >
       </button>
 
       <!--TODO-->
       <span ngNonBindable> {{ "current chat/channel" }}</span>
       <div class="spacer"></div>
       <span ngNonBindable> {{ "all members of chat/channel" }}</span>
-
     </mat-toolbar>
     <!-- Add Content Here -->
     <!-- <router-outlet></router-outlet> -->
