@@ -16,10 +16,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { FormsModule } from '@angular/forms';
 
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatInputModule} from '@angular/material/input';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 
@@ -30,6 +32,7 @@ import {MatInputModule} from '@angular/material/input';
     AppComponent,
     LoginComponent,
     MenuComponent,
+    ChatComponent,
 
   ],
   imports: [
@@ -71,7 +74,8 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatListModule,
     MatTreeModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
