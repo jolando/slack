@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+  <mat-card-title>Example Name</mat-card-title>
+  <mat-card-subtitle
+    >Aktive <mat-icon class="online-icon">lens</mat-icon>
+  </mat-card-subtitle>
+  <button mat-stroked-button>
+    <mat-icon>mood</mat-icon> Setze deinen Status
+  </button>
+
+  <p mat-menu-item>Setze dich auf abwesend</p>
+  <p mat-menu-item>Profil</p>
+  <p mat-menu-item>Persöhnliche Einstelleungen</p>
+
+  <span mat-menu-item>
+    <mat-slide-toggle (click)="toggleDarkMode()" [(ngModel)]="isDarkMode"
+      >Dark mode</mat-slide-toggle
+    >
+  </span>
+  <button mat-menu-item (click)="signOut()">Abmelden</button>
+</mat-card>
