@@ -1,0 +1,53 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node 
+      class="channels-tree-node"
+      *matTreeNodeDef="let node" 
+      matTreeNodePadding>
+      <!-- use a disabled button to provide padding for tree leaf -->
+      <button mat-icon-button disabled></button>
+      {{ node.name }}
+
+    </mat-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node
+      (mouseover)="moreOptions=true"
+      (mouseout)="moreOptions=false" 
+      *matTreeNodeDef="let node; when: hasChild"
+      matTreeNodePadding
+      class="channels-tree-father"
+    >
+    <div>
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'Toggle ' + node.name"
+        
+      >
+        <fa-icon *ngIf="treeControl.isExpanded(node)" [icon]="faCaretDown"></fa-icon>
+        <fa-icon *ngIf="!treeControl.isExpanded(node)" [icon]="faCaretRight"></fa-icon>
+
+      </button>
+      {{ node.name }}
+    </div>
+
+      <div>
+        <button mat-button [matMenuTriggerFor]="menuDot">
+          <fa-icon [icon]="faEllipsisV"></fa-icon>
+        </button>
+  
+        <button mat-button [matMenuTriggerFor]="menuPlus">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+
+    </mat-tree-node>
+  </mat-tree>
+
+  <mat-menu #menuDot="matMenu">
+    <button mat-menu-item>Direktnachrichten durchsuchen</button>
+  </mat-menu>
+
+  <mat-menu #menuPlus="matMenu">
+    <button (click)="openDialog()" mat-menu-item>Channels erstellen</button>
+  </mat-menu>

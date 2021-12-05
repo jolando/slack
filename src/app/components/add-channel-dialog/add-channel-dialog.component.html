@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Channels erstellen</h1>
+<p>Channels dienen deinem Team zur Kommunikation. Am besten sollten </p>
+<p> sie themenbezogen sein – #marketing zum Beispiel.</p>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input class="create-channel-dailog-input" placeholder="# z.B.budget-planug">
+    </mat-form-field>
+
+</div>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Beschreibung (optional)</mat-label>
+        <input class="create-channel-dailog-input">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button cdkFocusInitial>ErStellen</button>
+</div>

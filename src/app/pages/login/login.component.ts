@@ -1,31 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthProvider} from 'ngx-auth-firebaseui';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthProcessService, AuthProvider } from 'ngx-auth-firebaseui';
 
 import { Router } from '@angular/router';
-
-
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   providers = AuthProvider;
 
+  event: any;
 
-  constructor(private router: Router) { }
+  @ViewChild('output') outputDiv: any;
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private router: Router,
+    public authProcess: AuthProcessService,
+    public afs: AngularFirestore
+  ) {}
 
+  ngOnInit(): void {}
 
   printUser(event) {
     console.log(event);
     this.router.navigateByUrl('/home');
-}
 
-  printError(event) {
-    console.error(event);
+    let users = this.afs.firestore
+      .collection('users')
+      .doc(event.uid)
+      .get()
+      .then((el) => console.log(el.data()));
+    console.log(users);
+  }
+
+  printError(event: any) {
+    console.error(event.message);
+    this.event = event;
   }
 }
