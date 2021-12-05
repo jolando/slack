@@ -5,7 +5,7 @@
 .sidenav {
   width: 300px;
   margin-top: 50px !important;
-  margin-bottom: -42px!important;
+  margin-bottom: -42px !important;
 }
 
 .slack-space {
@@ -23,19 +23,6 @@
   z-index: 1;
 }
 
-
-/*FORM */
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-  height: 100px;
-}
-
-.example-full-width {
-  width: 100%;
-}
-
 .menu-list-item {
   display: flex;
   flex-direction: row;
@@ -45,3 +32,4 @@
 .menu-list-item-icon {
   margin-right: 12px !important;
 }
+
