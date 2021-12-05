@@ -2,54 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-
+import { faComments, faAt, faBookmark, faCommentDots, faLink, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { ThemeService } from 'src/app/services/theme.service';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FlatTreeControl } from '@angular/cdk/tree';
-
-
 import { AuthProcessService, NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-
 import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { ThemeService } from 'src/app/services/theme.service';
-import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-
-
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Channels',
-    children: [{ name: 'example' }, { name: 'example' }, { name: 'example' }],
-  },
-  {
-    name: 'Direktnachrichten',
-    children: [
-      {
-        name: 'example',
-      },
-      {
-        name: 'example',
-      },
-    ],
-  },
-];
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-menu',
@@ -59,8 +21,14 @@ interface ExampleFlatNode {
 export class MenuComponent {
   title = 'dark-theme-yt';
 
-  showFiller = false;
 
+  faCommentDots = faCommentDots;
+  faComments = faComments;
+  faAt = faAt;
+  faBookmark = faBookmark;
+  faLink = faLink;
+  faEllipsisV = faEllipsisV;
+  showFiller = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -74,19 +42,6 @@ export class MenuComponent {
     // this.themeService.initTheme();
     // this.isDarkMode = this.themeService.isDarkMode();
   }
-
-
-
-
-  // toggleDarkMode() {
-  //   this.isDarkMode = this.themeService.isDarkMode();
-
-  //   this.isDarkMode
-  //     ? this.themeService.update('lightMode')
-  //     : this.themeService.update('darkMode');
-  // }
-
-
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -117,6 +72,5 @@ export class MenuComponent {
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 }

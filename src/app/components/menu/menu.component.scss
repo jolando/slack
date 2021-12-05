@@ -23,4 +23,13 @@
   z-index: 1;
 }
 
-/*FORM */
+.menu-list-item {
+  display: flex;
+  flex-direction: row;
+  height: 36px !important;
+}
+
+.menu-list-item-icon {
+  margin-right: 12px !important;
+}
+

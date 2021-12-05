@@ -10,25 +10,38 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ChannelsComponent } from './components/channels/channels.component';
+import { AddChannelDialogComponent } from './components/add-channel-dialog/add-channel-dialog.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DirectMessagesComponent } from './components/direct-messages/direct-messages.component';
 
 import { MatTreeModule } from '@angular/material/tree';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MainSettingsComponent } from './components/main-settings/main-settings.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, MenuComponent, MainSettingsComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    MenuComponent,
+    ChannelsComponent,
+    AddChannelDialogComponent,
+    DirectMessagesComponent,
+    MainSettingsComponent
+  ],
+
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -51,12 +64,12 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
         toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
         authGuardFallbackURL: '/', // url for unauthenticated users - to use in combination with canActivate feature on a route
         authGuardLoggedInURL: '/home', // url for authenticated users - to use in combination with canActivate feature on a route
+
         passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
         passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
         // Same as password but for the name
         nameMaxLength: 50,
         nameMinLength: 2,
-
         // If set, sign-in/up form is not available until email has been verified.
         // Plus protected routes are still protected even though user is connected.
         guardProtectedRoutesUntilEmailIsVerified: false,
@@ -64,6 +77,7 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
         useRawUserCredential: false, // If set to true outputs the UserCredential object instead of firebase.User after login and signup - Default: false
       }
     ),
+
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -72,11 +86,14 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
     MatListModule,
     MatTreeModule,
     MatInputModule,
-    MatDialogModule,
     MatMenuModule,
+    MatDialogModule,
+    FontAwesomeModule,
+    MatDialogModule,
     MatSlideToggleModule,
     FormsModule,
     MatCardModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
