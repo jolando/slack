@@ -58,37 +58,33 @@ interface ExampleFlatNode {
 })
 export class MenuComponent {
   title = 'dark-theme-yt';
-  isDarkMode: boolean;
+
   showFiller = false;
 
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public themeService: ThemeService,
+
     public router: Router,
     public afAuth: AngularFireAuth,
     public authProcess: AuthProcessService
 
   ) {
     this.dataSource.data = TREE_DATA;
-    this.themeService.initTheme();
-    this.isDarkMode = this.themeService.isDarkMode();
-  }
-
-  async signOut() {
-    await this.authProcess.signOut()
-    this.router.navigate(['/']);
+    // this.themeService.initTheme();
+    // this.isDarkMode = this.themeService.isDarkMode();
   }
 
 
 
-  toggleDarkMode() {
-    this.isDarkMode = this.themeService.isDarkMode();
 
-    this.isDarkMode
-      ? this.themeService.update('lightMode')
-      : this.themeService.update('darkMode');
-  }
+  // toggleDarkMode() {
+  //   this.isDarkMode = this.themeService.isDarkMode();
+
+  //   this.isDarkMode
+  //     ? this.themeService.update('lightMode')
+  //     : this.themeService.update('darkMode');
+  // }
 
 
 

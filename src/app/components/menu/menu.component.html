@@ -13,26 +13,18 @@
   <button mat-button [matMenuTriggerFor]="beforeMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <mat-menu  class="menu-settings" #beforeMenu="matMenu" xPosition="before">
-    <!-- <button mat-button (click)="openDialog()">open dialog</button> -->
+<mat-menu class="menu-settings" #beforeMenu="matMenu" xPosition="before">
+  <app-main-settings></app-main-settings>
+</mat-menu>
 
 
-    <span mat-menu-item><mat-slide-toggle  (click)="toggleDarkMode()" [(ngModel)]="isDarkMode"
-      >Dark mode</mat-slide-toggle
-    ></span>
-    <button mat-menu-item (click)="signOut()">Abmelden</button>
-  </mat-menu>
+
+
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar class="slack-space">Menu</mat-toolbar>
 
     <hr />
@@ -54,18 +46,11 @@
           {{ node.name }}
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node
-          *matTreeNodeDef="let node; when: hasChild"
-          matTreeNodePadding
-        >
-          <button
-            mat-icon-button
-            matTreeNodeToggle
-            [attr.aria-label]="'Toggle ' + node.name"
-          >
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
               {{
-                treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
+              treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
               }}
             </mat-icon>
           </button>
@@ -76,16 +61,9 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar>
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
-        <mat-icon aria-label="Side nav toggle icon"
-          >keyboard_double_arrow_right</mat-icon
-        >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">keyboard_double_arrow_right</mat-icon>
       </button>
 
       <!--TODO-->

@@ -24,9 +24,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MainSettingsComponent } from './components/main-settings/main-settings.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, MenuComponent],
+  declarations: [AppComponent, LoginComponent, MenuComponent, MainSettingsComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -47,8 +49,8 @@ import { FormsModule } from '@angular/forms';
         enableFirestoreSync: true, // enable/disable autosync users with firestore
         toastMessageOnAuthSuccess: true, // whether to open/show a snackbar message on auth success - default : true
         toastMessageOnAuthError: true, // whether to open/show a snackbar message on auth error - default : true
-        authGuardFallbackURL: '/loggedout', // url for unauthenticated users - to use in combination with canActivate feature on a route
-        authGuardLoggedInURL: '/loggedin', // url for authenticated users - to use in combination with canActivate feature on a route
+        authGuardFallbackURL: '/', // url for unauthenticated users - to use in combination with canActivate feature on a route
+        authGuardLoggedInURL: '/home', // url for authenticated users - to use in combination with canActivate feature on a route
         passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
         passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
         // Same as password but for the name
@@ -74,6 +76,7 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule,
     MatSlideToggleModule,
     FormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
