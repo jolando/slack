@@ -1,14 +1,14 @@
 <div class="chat">
-    <div class="message-container">
+    <div *ngFor="let message of messages;" class="message-container">
         <img id="profile-img" src="assets/img/fabi.jpg" alt="profile-img">
         <div class="message">
             <h3>Fabian Gurth</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam minus quasi magni obcaecati repellat tempore error corrupti reprehenderit quis aliquam? Ratione magnam expedita aspernatur quae nulla veniam quidem, tenetur quam!</p>
+            <p>{{message}}</p>
         </div>
 
     </div>
     <div class="message-input-container">
-        <input type="text" [(ngModel)]="message" placeholder="Nachricht senden...">
+        <input type="text" (keyup.enter)="sendMessage()" (keydown.shift.enter)="breakLine()" [(ngModel)]="message" placeholder="Nachricht senden...">
         <div class="toolbar">
             <div class="tools">
                 <mat-icon>attach_file</mat-icon>
@@ -21,7 +21,7 @@
             </div>
 
             <div>
-                <mat-icon [class.active]="message">send</mat-icon>
+                <mat-icon (click)="sendMessage()" [class.active]="message">send</mat-icon>
             </div>
         </div>
     </div>
