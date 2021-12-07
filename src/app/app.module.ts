@@ -33,7 +33,7 @@ import { DirectMessagesComponent } from './components/direct-messages/direct-mes
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -98,7 +98,8 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
     MatDialogModule,
     MatSlideToggleModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],
