@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Channel } from 'src/app/models/Channel.class';
+import { Channel } from 'src/app/models/channel.class';
 
 @Component({
   selector: 'app-add-channel-dialog',
@@ -11,14 +11,7 @@ import { Channel } from 'src/app/models/Channel.class';
 export class AddChannelDialogComponent implements OnInit {
 
   channel: Channel =  new Channel();
-
-  selectedUsers = [];
-  // cars = [
-  //     { id: 1, name: 'Volvo' },
-  //     { id: 2, name: 'Saab', disabled: true },
-  //     { id: 3, name: 'Opel' },
-  //     { id: 4, name: 'Audi' },
-  // ];
+  selectedUsers: any = [];
   users: any = [];
 
 
@@ -30,7 +23,7 @@ export class AddChannelDialogComponent implements OnInit {
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
-        console.log('Receive changes from DB', changes);
+        // console.log('Receive changes from DB', changes);
         this.users = changes.filter((item) => item.displayName != null);
       });
   }
@@ -40,10 +33,11 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   save(): void {
-    this.firestore.collection('users').add(this.channel.toJSON()).then(
+    this.channel.userIdList = this.selectedUsers;
+    this.firestore.collection('channels').add(this.channel.toJSON()).then(
       (result:any) => {
-        console.log('Add channel : ', result);
-        console.log('Selected users : ', this.selectedUsers);
+        // console.log('Add channel : ', result);
+        // console.log('Selected users : ', this.selectedUsers);
         this.dialogRef.close();
       }
     );

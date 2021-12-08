@@ -4,20 +4,21 @@
 <div mat-dialog-content>
     <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input matInput class="create-channel-dailog-input" placeholder="# z.B.budget-planug">
+        <input matInput required [(ngModel)]="channel.name" class="create-channel-dailog-input" placeholder="# z.B.budget-planug">
     </mat-form-field>
 
 </div>
 <div mat-dialog-content>
     <mat-form-field appearance="fill">
         <mat-label>Beschreibung (optional)</mat-label>
-        <input matInput class="create-channel-dailog-input">
+        <input matInput [(ngModel)]="channel.description" class="create-channel-dailog-input">
     </mat-form-field>
 </div>
-<ng-select [multiple]="true" [(ngModel)]="selectedUsers" [openOnEnter]="false">
-    <ng-option *ngFor="let user of users" [value]="user.uid" [disabled]="user.disabled">{{user.displayName}}</ng-option>
-    <ng-option [value]="'--'">--</ng-option>
+
+<ng-select class="user-select" [multiple]="true" [(ngModel)]="selectedUsers" [openOnEnter]="false">
+    <ng-option *ngFor="let user of users" [value]="user.uid">{{user.displayName}}</ng-option>
 </ng-select>
+
 <!-- <br/>Selected car ID: {{selectedUsers | json}} -->
 <div mat-dialog-actions class="dialog-button-container">
   <button mat-button (click)="onNoClick()">No Thanks</button>

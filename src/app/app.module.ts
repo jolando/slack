@@ -34,6 +34,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AddChannelDialogComponent,
     DirectMessagesComponent,
     MainSettingsComponent,
+    AddMessageDialogComponent,
   ],
 
   imports: [
