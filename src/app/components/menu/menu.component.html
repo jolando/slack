@@ -1,99 +1,86 @@
 <mat-toolbar color="primary" class="slack-space">
-  <mat-icon>menu</mat-icon>
-  <div class="spacer"></div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <!-- <mat-label>Email</mat-label> -->
-      <input type="email" matInput placeholder="Search" />
-    </mat-form-field>
-  </form>
-  <div class="spacer"></div>
-  <mat-icon>help</mat-icon>
+    <mat-icon>menu</mat-icon>
+    <div class="spacer"></div>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <!-- <mat-label>Email</mat-label> -->
+            <input type="email" matInput placeholder="Search" />
+        </mat-form-field>
+    </form>
+    <div class="spacer"></div>
+    <mat-icon>help</mat-icon>
 
-  <button mat-button [matMenuTriggerFor]="beforeMenu">
+    <button mat-button [matMenuTriggerFor]="beforeMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <mat-menu class="menu-settings" #beforeMenu="matMenu" xPosition="before">
-    <app-main-settings></app-main-settings>
-  </mat-menu>
+    <mat-menu class="menu-settings" #beforeMenu="matMenu" xPosition="before">
+        <app-main-settings></app-main-settings>
+    </mat-menu>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
-    <mat-toolbar class="slack-space">
-      Developer Akademie
-      <mat-icon>expand_more</mat-icon>
-    </mat-toolbar>
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar class="slack-space">
+            Developer Akademie
+            <mat-icon>expand_more</mat-icon>
+        </mat-toolbar>
 
-    <hr />
-    <!-- <div class="menu-list-container">
+        <hr />
+        <!-- <div class="menu-list-container">
       <div class="menu-list-item"><fa-icon [icon]="faCommentDots"></fa-icon><a mat-list-item href="#">Threads</a></div>
       <div class="menu-list-item"><a mat-list-item href="#"><fa-icon [icon]="faComments"></fa-icon>Alle DMs</a></div>
     </div> -->
-    <mat-nav-list>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faCommentDots"></fa-icon>
-        Threads
-      </a>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faComments"></fa-icon>
-        Alle DMs
-      </a>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faAt"></fa-icon>
-        Erwähnungen und Reaktionen
-      </a>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faBookmark"></fa-icon>
-        Lesezeichen
-      </a>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faLink"></fa-icon>
-        Slackconnect
-      </a>
-      <a mat-list-item class="menu-list-item" href="#">
-        <fa-icon class="menu-list-item-icon" [icon]="faEllipsisV"></fa-icon>
-        Mehr
-      </a>
-      <hr />
-      <!--TODO-->
+        <mat-nav-list>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faCommentDots"></fa-icon>
+                Threads
+            </a>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faComments"></fa-icon>
+                Alle DMs
+            </a>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faAt"></fa-icon>
+                Erwähnungen und Reaktionen
+            </a>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faBookmark"></fa-icon>
+                Lesezeichen
+            </a>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faLink"></fa-icon>
+                Slackconnect
+            </a>
+            <a mat-list-item class="menu-list-item" href="#">
+                <fa-icon class="menu-list-item-icon" [icon]="faEllipsisV"></fa-icon>
+                Mehr
+            </a>
+            <hr />
+            <!--TODO-->
 
-      <app-channels></app-channels>
-      <app-direct-messages></app-direct-messages>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar>
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
+            <app-channels></app-channels>
+            <app-direct-messages></app-direct-messages>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon"
           >keyboard_double_arrow_right</mat-icon
         >
       </button>
 
-      <!--TODO-->
-      <span ngNonBindable> {{ "current chat/channel" }}</span>
-      <div class="spacer"></div>
-      <span ngNonBindable> {{ "all members of chat/channel" }}</span>
-    </mat-toolbar>
+            <!--TODO-->
+            <span ngNonBindable> {{ "current chat/channel" }}</span>
+            <div class="spacer"></div>
+            <span ngNonBindable> {{ "all members of chat/channel" }}</span>
+        </mat-toolbar>
 
-    <div class="chat-container">
-      <app-chat></app-chat>
-    </div>
+        <div class="chat-container">
+            <app-chat></app-chat>
+        </div>
 
-    <!-- Add Content Here -->
-    <!-- <router-outlet></router-outlet> -->
-  </mat-sidenav-content>
+        <!-- Add Content Here -->
+        <!-- <router-outlet></router-outlet> -->
+    </mat-sidenav-content>
 </mat-sidenav-container>

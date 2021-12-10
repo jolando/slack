@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit {
 
   breakLine(){
     console.log('breakeLine');
+   this.message = this.message + `<br>`;
     
   }
 
