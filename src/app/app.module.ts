@@ -33,6 +33,8 @@ import { DirectMessagesComponent } from './components/direct-messages/direct-mes
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
+import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
+import { SetStatusDialogComponent } from './components/set-status-dialog/set-status-dialog.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
     AddChannelDialogComponent,
     DirectMessagesComponent,
     MainSettingsComponent,
+    ProfileDialogComponent,
+    SetStatusDialogComponent,
   ],
 
   imports: [

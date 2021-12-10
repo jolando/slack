@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Status einstellen</h2>
+{{ currentStatus + 2 + "2" }}
+
+<mat-form-field class="status-input" appearance="standard">
+  <!-- <mat-label>Standard form field</mat-label> -->
+  <input
+    class="status-input"
+    [(ngModel)]="currentStatus"
+    #status
+    matInput
+    placeholder="Placeholder"
+  />
+  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+</mat-form-field>
+
+<p
+  class="my-class"
+  (click)="status.value = option.optionText"
+  *ngFor="let option of options"
+>
+  <span>{{ option.smiley }} </span>{{ option.optionText }}
+</p>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="changeStatus()"
+    mat-dialog-close
+  >
+    Speichern
+  </button>
+</mat-dialog-actions>

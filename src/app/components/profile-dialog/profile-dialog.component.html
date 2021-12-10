@@ -1,0 +1,24 @@
+<ng-container class="profile-box">
+  <img src="../../../assets/img/user.png" alt="" />
+  <h2 class="name-field">{{ displayName }}</h2>
+  <div class="options-container">
+    <div>
+      Profil<br />
+      bearbeiten
+    </div>
+  </div>
+  <div class="display-user-info">
+    <div class="controll">
+      <h5>Anzeigename</h5>
+      <span>{{ displayName }}</span>
+    </div>
+    <div class="controll">
+      <h5>Ortszeit</h5>
+      <span>{{ rxTime | date: "hh:mm:ss a" }}</span>
+    </div>
+    <div class="controll">
+      <h5>E-mail Adresse</h5>
+      <span>{{ email }}</span>
+    </div>
+  </div>
+</ng-container>
