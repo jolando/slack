@@ -2,39 +2,40 @@
 //   height: 100%;
 // }
 .sidenav {
-  width: 300px;
-  margin-top: 50px !important;
-  margin-bottom: -42px !important;
+    width: 300px;
+    margin-top: 50px !important;
+    margin-bottom: -42px !important;
 }
 
 .slack-space {
-  height: 55px;
+    height: 55px;
 }
 
 .sidenav .mat-toolbar {
-  background: inherit;
+    background: inherit;
 }
 
 .mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  height: 50px;
-  z-index: 1;
+    position: sticky;
+    top: 0;
+    height: 50px;
+    z-index: 1;
 }
 
 .chat-container {
-  padding: 16px 32px;
+    padding: 16px 32px;
 }
 
 .menu-list-item {
-  display: flex;
-  flex-direction: row;
-  height: 36px !important;
+    display: flex;
+    flex-direction: row;
+    height: 36px !important;
 }
 
 .menu-list-item-icon {
-  margin-right: 12px !important;
+    margin-right: 12px !important;
 }
+
 
 .example-container {
   width: 500px;
@@ -56,3 +57,8 @@
 .mat-menu-content {
   margin: 100px !important;
 }
+
+mat-sidenav-content {
+    height: calc(100vh - 50px);
+}
+
