@@ -46,6 +46,7 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   save(): void {
+    console.log('Selected users : ', this.selectedUsers);
     this.channel.userIdList = this.selectedUsers;
     this.firestore.collection('channels').add(this.channel.toJSON()).then(
       (result:any) => {
