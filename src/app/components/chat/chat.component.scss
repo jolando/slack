@@ -5,6 +5,10 @@
 
 .message-container {
     display: flex;
+
+    &:hover{
+        background-color: #9191911c;
+    }
     img {
         height: 40px;
         border-radius: 5px;

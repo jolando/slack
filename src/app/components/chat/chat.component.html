@@ -3,12 +3,12 @@
         <img id="profile-img" src="assets/img/fabi.jpg" alt="profile-img">
         <div class="message">
             <h3>Fabian Gurth</h3>
-            <p>{{message}}</p>
+            <p style="white-space: pre;">{{message}}</p>
         </div>
 
     </div>
     <div class="message-input-container">
-        <textarea [(ngModel)]="message" placeholder="Nachricht senden..." cols="1" rows="1"></textarea>
+        <textarea [(ngModel)]="message" (keyup.enter)="sendMessage($event)" placeholder="Nachricht senden..." cols="1" rows="1"></textarea>
         <!-- <input type="text" (keyup.enter)="sendMessage()" (keydown.shift.enter)="breakLine()" [(ngModel)]="message" placeholder="Nachricht senden..."> -->
         <div class="toolbar">
             <div class="tools">
