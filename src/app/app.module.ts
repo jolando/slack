@@ -26,6 +26,9 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatInputModule} from '@angular/material/input';
 import { ChatComponent } from './components/chat/chat.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -39,6 +42,8 @@ import { SetStatusDialogComponent } from './components/set-status-dialog/set-sta
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
 import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,7 @@ import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user
     ImprintComponent,
     DataPrivacyComponent,
     EditUserDialogComponent,
+    AddMessageDialogComponent,
   ],
 
   imports: [
@@ -105,6 +111,7 @@ import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user
     MatTreeModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatDialogModule,
     FontAwesomeModule,
