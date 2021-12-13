@@ -1,30 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
 import { AuthProcessService } from 'ngx-auth-firebaseui';
+import { User } from 'src/app/pages/login/user';
+
 import { ThemeService } from 'src/app/services/theme.service';
+import { UpdatefirebaseService } from 'src/app/services/updatefirebase.service';
+import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
+import { SetStatusDialogComponent } from '../set-status-dialog/set-status-dialog.component';
 
 @Component({
   selector: 'app-main-settings',
   templateUrl: './main-settings.component.html',
-  styleUrls: ['./main-settings.component.scss']
+  styleUrls: ['./main-settings.component.scss'],
 })
 export class MainSettingsComponent implements OnInit {
   isDarkMode: boolean;
 
+  userImage: string = '../../../assets/img/user.png';
+  userName: string;
+  status: boolean = true;
+
+  updateUser;
+  currentUser: User;
+
   constructor(
     public themeService: ThemeService,
     public router: Router,
-    public afAuth: AngularFireAuth,
-    public authProcess: AuthProcessService) {
+    public authProcess: AuthProcessService,
+    public dialog: MatDialog,
+    private afs: AngularFirestore,
+    private updateFirestoreService: UpdatefirebaseService
+  ) {
     this.themeService.initTheme();
     this.isDarkMode = this.themeService.isDarkMode();
   }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    this.afs
+      .collection('users')
+      .doc(this.currentUser.uid)
+      .valueChanges()
+      .subscribe((docRef) => {
+        this.updateUser = docRef;
+        console.log(docRef);
+      });
   }
 
-  toggleDarkMode() {
+  openStatusDialog(): void {
+    const dialogRef = this.dialog.open(SetStatusDialogComponent, {
+      width: '550px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  updateUserStatus() {
+    const onlineValue = (this.status = !this.status);
+    this.updateFirestoreService.updateFirestore('onlineStatus', onlineValue);
+  }
+
+  openDialog() {
+    this.dialog.open(ProfileDialogComponent, {
+      width: '550px',
+      data: { user: this.updateUser },
+    });
+  }
+
+  toggleDarkMode(): void {
     this.isDarkMode = this.themeService.isDarkMode();
 
     this.isDarkMode
@@ -32,11 +82,8 @@ export class MainSettingsComponent implements OnInit {
       : this.themeService.update('darkMode');
   }
 
-  async signOut() {
-    await this.authProcess.signOut()
+  async signOut(): Promise<void> {
+    await this.authProcess.signOut();
     this.router.navigate(['/']);
   }
-
-
-
 }

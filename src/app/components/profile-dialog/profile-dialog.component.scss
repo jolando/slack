@@ -1,0 +1,39 @@
+img {
+  margin: auto;
+  height: 150px;
+  width: 150px;
+}
+
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.options-container {
+  gap: 30px;
+  text-align: center;
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.display-user-info {
+  margin-top: 60px;
+
+  .controll {
+    margin: 10px 0;
+    h5 {
+      margin: 0;
+    }
+  }
+}

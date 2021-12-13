@@ -1,20 +1,37 @@
-<mat-card class="example-card">
-  <mat-card-title>Example Name</mat-card-title>
-  <mat-card-subtitle
-    >Aktive <mat-icon class="online-icon">lens</mat-icon>
-  </mat-card-subtitle>
-  <button mat-stroked-button>
-    <mat-icon>mood</mat-icon> Setze deinen Status
-  </button>
+<div class="profile-container">
+  <img src="{{ updateUser.photoURL }}" />
+  <div class="center">
+    <mat-card-title>{{
+      currentUser.displayName ? updateUser.displayName : "Guest"
+    }}</mat-card-title>
+    <!-- <span>{{status}}</span> -->
+    <mat-card-subtitle *ngIf="status"
+      >Aktiv<mat-icon class="online-icon">lens</mat-icon>
+    </mat-card-subtitle>
 
-  <p mat-menu-item>Setze dich auf abwesend</p>
-  <p mat-menu-item>Profil</p>
-  <p mat-menu-item>Persöhnliche Einstelleungen</p>
-
-  <span mat-menu-item>
-    <mat-slide-toggle (click)="toggleDarkMode()" [(ngModel)]="isDarkMode"
-      >Dark mode</mat-slide-toggle
+    <mat-card-subtitle *ngIf="!status"
+      >Abwesend<mat-icon class="afk">lens</mat-icon></mat-card-subtitle
     >
-  </span>
-  <button mat-menu-item (click)="signOut()">Abmelden</button>
-</mat-card>
+  </div>
+</div>
+
+<button mat-stroked-button (click)="openStatusDialog()" class="status-btn">
+  <mat-icon>mood</mat-icon> Setze deinen Status
+</button>
+<p *ngIf="!status" mat-menu-item (click)="updateUserStatus()">
+  Setze dich auf aktiv
+</p>
+<p *ngIf="status" mat-menu-item (click)="updateUserStatus()">
+  Setze dich auf abwesend
+</p>
+
+<p mat-menu-item (click)="openDialog()">Profil</p>
+<span>
+  <mat-slide-toggle
+    color="primary"
+    (click)="toggleDarkMode()"
+    [(ngModel)]="isDarkMode"
+    >Dark mode</mat-slide-toggle
+  >
+</span>
+<button mat-menu-item class="logout" (click)="signOut()">Log Out</button>

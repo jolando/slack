@@ -1,5 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
 
 @Component({
   selector: 'app-chat',
@@ -10,21 +14,47 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class ChatComponent implements OnInit {
-  message: string;
+  message: string = '';
   messages = [];
-  constructor() { }
+
+
+
+  constructor(private router: Router, public firestore: AngularFirestore) { }
 
   ngOnInit(): void {
-  }
-
-  sendMessage(){
-    this.messages.push(this.message);
-    this.message = '';
-  }
-
-  breakLine(){
-    console.log('breakeLine');
+    
+    this.firestore
+    .collection('channels')
+    .doc('tHvLHahPsEcAJ7qHsHmy')
+    .valueChanges()
+    .subscribe((changes: any) =>{
+      console.log(changes);
+      
+      this.messages = changes;
+    });
     
   }
 
+  sendMessage(event?){
+    
+    if(event){
+      event.preventDefault();
+    }
+    
+    if(this.message.replace(/\s/g, '').length){
+      
+      this.message = '';
+      
+    }
+    
+  }
+
+  updateFirebase(){
+    this.firestore
+    .collection('channels')
+    .doc('tHvLHahPsEcAJ7qHsHmy')
+    .update({
+      messages: this.message
+    })
+  }
 }
