@@ -22,18 +22,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-
-import { FormsModule } from '@angular/forms';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
-import {MatTreeModule} from '@angular/material/tree';
-import {MatInputModule} from '@angular/material/input';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatInputModule } from '@angular/material/input';
-
 import { ChatComponent } from './components/chat/chat.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -42,16 +33,13 @@ import { DirectMessagesComponent } from './components/direct-messages/direct-mes
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
-
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { SetStatusDialogComponent } from './components/set-status-dialog/set-status-dialog.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
 import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
-import { NgSelectModule } from '@ng-select/ng-select';
-
-
 import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -76,7 +64,6 @@ import { AddMessageDialogComponent } from './components/add-message-dialog/add-m
     AngularFireAuthModule,
     MatFormFieldModule,
     AngularFireStorageModule,
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -127,8 +114,7 @@ import { AddMessageDialogComponent } from './components/add-message-dialog/add-m
     MatSlideToggleModule,
     FormsModule,
     MatCardModule,
-
-
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],
