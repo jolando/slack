@@ -6,7 +6,7 @@
       matTreeNodePadding>
       <!-- use a disabled button to provide padding for tree leaf -->
       <button mat-icon-button disabled></button>
-      {{ node.name }}
+      {{ node.displayName }}
 
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
@@ -21,20 +21,22 @@
       <button
         mat-icon-button
         matTreeNodeToggle
-        [attr.aria-label]="'Toggle ' + node.name"
+        [attr.aria-label]="'Toggle ' + node.displayName"
         
       >
         <fa-icon *ngIf="treeControl.isExpanded(node)" [icon]="faCaretDown"></fa-icon>
         <fa-icon *ngIf="!treeControl.isExpanded(node)" [icon]="faCaretRight"></fa-icon>
 
       </button>
-      {{ node.name }}
+      {{ node.displayName }}
     </div>
-
+    <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+      <ng-container matTreeNodeOutlet></ng-container>
+    </div>
       <div>
-        <button mat-button [matMenuTriggerFor]="menuDot">
+        <!-- <button mat-button [matMenuTriggerFor]="menuDot">
           <fa-icon [icon]="faEllipsisV"></fa-icon>
-        </button>
+        </button> -->
   
         <button mat-button [matMenuTriggerFor]="menuPlus">
           <fa-icon [icon]="faPlus"></fa-icon>
@@ -49,5 +51,5 @@
   </mat-menu>
 
   <mat-menu #menuPlus="matMenu">
-    <button (click)="openDialog()" mat-menu-item>Channels erstellen</button>
+    <button (click)="openDialog()" mat-menu-item>Nachrichten erstellen</button>
   </mat-menu>

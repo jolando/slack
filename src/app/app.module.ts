@@ -19,7 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatInputModule} from '@angular/material/input';
@@ -33,7 +33,8 @@ import { DirectMessagesComponent } from './components/direct-messages/direct-mes
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
     AddChannelDialogComponent,
     DirectMessagesComponent,
     MainSettingsComponent,
+    AddMessageDialogComponent,
   ],
 
   imports: [
@@ -92,13 +94,15 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
     MatTreeModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatDialogModule,
     FontAwesomeModule,
     MatDialogModule,
     MatSlideToggleModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],
