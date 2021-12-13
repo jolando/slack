@@ -1,5 +1,17 @@
 <mat-toolbar color="primary" class="slack-space">
-  <mat-icon>menu</mat-icon>
+  <button mat-button [matMenuTriggerFor]="belowMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #belowMenu="matMenu" xPosition="before">
+    <button
+      mat-menu-item
+      [routerLink]="['', { outlets: { imprint: ['imprint'] } }]"
+    >
+      Impressum
+    </button>
+    <button mat-menu-item>Datenschutz</button>
+  </mat-menu>
+
   <div class="spacer"></div>
   <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
@@ -82,7 +94,6 @@
           >keyboard_double_arrow_right</mat-icon
         >
       </button>
-
       <!--TODO-->
       <span ngNonBindable> {{ "current chat/channel" }}</span>
       <div class="spacer"></div>
@@ -91,9 +102,9 @@
 
     <div class="chat-container">
       <app-chat></app-chat>
+      <router-outlet name="main-content"></router-outlet>
     </div>
 
     <!-- Add Content Here -->
-    <!-- <router-outlet></router-outlet> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

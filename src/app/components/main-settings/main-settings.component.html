@@ -1,20 +1,30 @@
 <div class="profile-container">
-  <img src="{{ userImage }}" />
+  <img src="{{ updateUser.photoURL }}" />
   <div class="center">
-    <mat-card-title>{{ userName }}</mat-card-title>
+    <mat-card-title>{{
+      currentUser.displayName ? updateUser.displayName : "Guest"
+    }}</mat-card-title>
     <!-- <span>{{status}}</span> -->
-    <mat-card-subtitle
-      >{{ status
-      }}<mat-icon *ngIf="status === 'Aktiv'" class="online-icon">lens</mat-icon>
-      <mat-icon *ngIf="status === 'Abwesend'" class="afk">lens</mat-icon>
+    <mat-card-subtitle *ngIf="status"
+      >Aktiv<mat-icon class="online-icon">lens</mat-icon>
     </mat-card-subtitle>
+
+    <mat-card-subtitle *ngIf="!status"
+      >Abwesend<mat-icon class="afk">lens</mat-icon></mat-card-subtitle
+    >
   </div>
 </div>
 
 <button mat-stroked-button (click)="openStatusDialog()" class="status-btn">
   <mat-icon>mood</mat-icon> Setze deinen Status
 </button>
-<p mat-menu-item (click)="updateUserStatus()">Setze dich auf abwesend</p>
+<p *ngIf="!status" mat-menu-item (click)="updateUserStatus()">
+  Setze dich auf aktiv
+</p>
+<p *ngIf="status" mat-menu-item (click)="updateUserStatus()">
+  Setze dich auf abwesend
+</p>
+
 <p mat-menu-item (click)="openDialog()">Profil</p>
 <span>
   <mat-slide-toggle

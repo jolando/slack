@@ -4,10 +4,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LoginComponent } from './pages/login/login.component';
 
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
+import { ImprintComponent } from './components/imprint/imprint.component';
+import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
 
 const routes: Routes = [
-  { path:'', component: LoginComponent },
-  { path:'home', component: MenuComponent,  canActivate:[LoggedInGuard] },
+  { path: '', component: LoginComponent },
+  { path: 'home', component: MenuComponent, canActivate: [LoggedInGuard] },
+  { path: 'imprint', component: ImprintComponent, outlet: 'main-content', canActivate: [LoggedInGuard] },
+  { path: 'data-privacy', component: DataPrivacyComponent, outlet: 'main-content', canActivate: [LoggedInGuard] },
 ];
 
 @NgModule({
@@ -15,3 +19,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

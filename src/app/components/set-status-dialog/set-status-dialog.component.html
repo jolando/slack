@@ -1,5 +1,4 @@
 <h2 mat-dialog-title>Status einstellen</h2>
-{{ currentStatus + 2 + "2" }}
 
 <mat-form-field class="status-input" appearance="standard">
   <!-- <mat-label>Standard form field</mat-label> -->
@@ -18,7 +17,7 @@
   (click)="status.value = option.optionText"
   *ngFor="let option of options"
 >
-  <span>{{ option.smiley }} </span>{{ option.optionText }}
+  {{ option.optionText }}
 </p>
 
 <mat-dialog-actions>

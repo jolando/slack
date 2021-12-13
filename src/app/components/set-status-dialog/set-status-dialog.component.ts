@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+
+
 import { User } from 'src/app/pages/login/user';
+import { UpdatefirebaseService } from 'src/app/services/updatefirebase.service';
 
 @Component({
   selector: 'app-set-status-dialog',
@@ -8,7 +10,6 @@ import { User } from 'src/app/pages/login/user';
   styleUrls: ['./set-status-dialog.component.scss'],
 })
 export class SetStatusDialogComponent implements OnInit {
-
   @ViewChild('status', { static: true }) statusElement: ElementRef;
 
   currentStatus: string = '';
@@ -22,24 +23,18 @@ export class SetStatusDialogComponent implements OnInit {
     { optionText: 'Home Office', smiley: '&#9757' },
   ];
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private updateFirestoreService: UpdatefirebaseService,
+  ) {}
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
   }
 
   changeStatus() {
-    this.currentStatus = this.statusElement.nativeElement.value
-    // console.log(this.currentUser.uid);
-    this.firestore
-      .collection('users')
-      .doc(this.currentUser.uid)
-      .set({ ...this.currentUser, statusText: this.currentStatus })
-      .then((a) => {
-        console.log(a);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.updateFirestoreService.updateFirestore(
+      'statusText',
+      this.statusElement.nativeElement.value
+    );
   }
 }

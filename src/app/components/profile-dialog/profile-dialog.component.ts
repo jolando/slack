@@ -1,12 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
 import { map, share } from 'rxjs/operators';
+import { User } from 'src/app/pages/login/user';
+import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-profile-dialog',
   templateUrl: './profile-dialog.component.html',
-  styleUrls: ['./profile-dialog.component.scss']
+  styleUrls: ['./profile-dialog.component.scss'],
 })
 export class ProfileDialogComponent implements OnInit {
   email: string = '---';
@@ -14,20 +16,32 @@ export class ProfileDialogComponent implements OnInit {
   subscription: Subscription;
   rxTime = new Date();
   intervalId;
+  currentUser: User;
+  currentProfileImg: string;
 
-
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit(): void {
-    let user = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    console.log(user);
-    if (user.displayName) {
-      this.email = user.email;
-      this.displayName = user.displayName;
-    }
+    // this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    // if (this.currentUser.displayName) {
+
+    // }
+    this.currentProfileImg = this.data.user.photoURL;
+    this.displayName = this.data.user.displayName;
     this.updateClock();
   }
 
+  openDialog() {
+    this.dialog.open(EditUserDialogComponent, {
+      width: '550px',
+      data: {
+        animal: 'panda',
+      },
+    });
+  }
 
   updateClock() {
     this.subscription = timer(0, 1000)
@@ -35,7 +49,7 @@ export class ProfileDialogComponent implements OnInit {
         map(() => new Date()),
         share()
       )
-      .subscribe(time => {
+      .subscribe((time) => {
         this.rxTime = time;
       });
   }

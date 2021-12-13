@@ -5,9 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ChannelsComponent } from './components/channels/channels.component';
@@ -18,15 +23,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-
 import { FormsModule } from '@angular/forms';
-
-import {MatTreeModule} from '@angular/material/tree';
-import {MatInputModule} from '@angular/material/input';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatInputModule } from '@angular/material/input';
 import { ChatComponent } from './components/chat/chat.component';
-
 import { MatMenuModule } from '@angular/material/menu';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DirectMessagesComponent } from './components/direct-messages/direct-messages.component';
@@ -35,7 +36,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { SetStatusDialogComponent } from './components/set-status-dialog/set-status-dialog.component';
-
+import { ImprintComponent } from './components/imprint/imprint.component';
+import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
+import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,11 +52,17 @@ import { SetStatusDialogComponent } from './components/set-status-dialog/set-sta
     MainSettingsComponent,
     ProfileDialogComponent,
     SetStatusDialogComponent,
+    ImprintComponent,
+    DataPrivacyComponent,
+    EditUserDialogComponent,
   ],
 
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    MatFormFieldModule,
+    AngularFireStorageModule,
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -102,7 +111,7 @@ import { SetStatusDialogComponent } from './components/set-status-dialog/set-sta
     MatDialogModule,
     MatSlideToggleModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { AuthProcessService } from 'ngx-auth-firebaseui';
+import { User } from 'src/app/pages/login/user';
 
 import { ThemeService } from 'src/app/services/theme.service';
+import { UpdatefirebaseService } from 'src/app/services/updatefirebase.service';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 import { SetStatusDialogComponent } from '../set-status-dialog/set-status-dialog.component';
-
-
-// export interface DialogData {
-//   currentUser: { uid:string, photoURL: string, providerId: string, emai};
-// }
 
 @Component({
   selector: 'app-main-settings',
@@ -23,29 +21,34 @@ export class MainSettingsComponent implements OnInit {
   isDarkMode: boolean;
 
   userImage: string = '../../../assets/img/user.png';
-  userName: string = 'Guest';
-  status: string = 'Aktiv';
+  userName: string;
+  status: boolean = true;
 
-  updateUser: object;
+  updateUser;
+  currentUser: User;
 
   constructor(
     public themeService: ThemeService,
     public router: Router,
-    public afAuth: AngularFireAuth,
     public authProcess: AuthProcessService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private afs: AngularFirestore,
+    private updateFirestoreService: UpdatefirebaseService
   ) {
     this.themeService.initTheme();
     this.isDarkMode = this.themeService.isDarkMode();
   }
 
   ngOnInit(): void {
-    let user = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    if (user.displayName) {
-      this.userName = user.displayName;
-      this.updateUser = { status: 'active', userImg: this.userImage, ...user };
-      console.log(this.updateUser);
-    }
+    this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    this.afs
+      .collection('users')
+      .doc(this.currentUser.uid)
+      .valueChanges()
+      .subscribe((docRef) => {
+        this.updateUser = docRef;
+        console.log(docRef);
+      });
   }
 
   openStatusDialog(): void {
@@ -54,21 +57,20 @@ export class MainSettingsComponent implements OnInit {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
   }
 
-  updateUserStatus(): void {
-    this.status = 'Abwesend';
+  updateUserStatus() {
+    const onlineValue = (this.status = !this.status);
+    this.updateFirestoreService.updateFirestore('onlineStatus', onlineValue);
   }
 
   openDialog() {
     this.dialog.open(ProfileDialogComponent, {
-      
-      data: {
-
-      },
+      width: '550px',
+      data: { user: this.updateUser },
     });
   }
 

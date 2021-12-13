@@ -1,11 +1,14 @@
 <ng-container class="profile-box">
-  <img src="../../../assets/img/user.png" alt="" />
+  <div class="test">
+    <img src="{{ currentProfileImg }}" alt="" />
+  </div>
   <h2 class="name-field">{{ displayName }}</h2>
   <div class="options-container">
-    <div>
+    <mat-icon>edit</mat-icon>
+    <button mat-button (click)="openDialog()" mat-dialog-close="true">
       Profil<br />
       bearbeiten
-    </div>
+    </button>
   </div>
   <div class="display-user-info">
     <div class="controll">

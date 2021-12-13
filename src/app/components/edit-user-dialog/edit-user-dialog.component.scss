@@ -1,0 +1,25 @@
+.edit-user-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+
+
+
+  img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .profile-photo-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-top: 50px;
+    button {
+      margin-top: 20px;
+    }
+  }
+}
