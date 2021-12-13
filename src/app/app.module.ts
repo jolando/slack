@@ -19,7 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatInputModule} from '@angular/material/input';
@@ -94,6 +94,7 @@ import { AddMessageDialogComponent } from './components/add-message-dialog/add-m
     MatTreeModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatDialogModule,
     FontAwesomeModule,

@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AddMessageDialogComponent } from '../add-message-dialog/add-message-dialog.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 /**
@@ -47,6 +48,7 @@ export class DirectMessagesComponent implements OnInit {
   users: any = [];
   messages: any = [];
   counterUserList: any = [];
+  currentUserId: string = '';
 
   constructor(private firebaseAuth: AngularFireAuth, 
               private dialog: MatDialog, 
@@ -55,6 +57,10 @@ export class DirectMessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firebaseAuth.authState.subscribe(user => {
+     console.log('User id : ', user.uid);
+     this.currentUserId = user.uid;
+    });
     this.getUserList();
     this.firestore
     .collection('directMessages')
