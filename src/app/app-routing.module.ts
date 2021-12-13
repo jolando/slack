@@ -10,12 +10,12 @@ const routes: Routes = [
   { path:'', component: LoginComponent, pathMatch: 'full' },
   { path:'home', component: MenuComponent,  canActivate:[LoggedInGuard],
   
-       children: [{
-       path: 'chat',
-       component: ChatComponent,
-       canActivate:[LoggedInGuard]
-    },
-   ]
+    //    children: [{
+    //    path: 'chat',
+    //    component: ChatComponent,
+    //    canActivate:[LoggedInGuard]
+    // },
+  //  ]
  }
 ];
 
