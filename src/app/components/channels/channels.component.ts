@@ -4,6 +4,8 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { faCaretRight, faCaretDown, faPlus, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { AddChannelDialogComponent } from '../add-channel-dialog/add-channel-dialog.component';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Channel } from 'src/app/models/channel.class';
 
 /**
  * Food data with nested structure.
@@ -40,12 +42,21 @@ export class ChannelsComponent implements OnInit {
   faEllipsisV = faEllipsisV;
   faPlus = faPlus;
   moreOptions: boolean = false;
+  channels: any = [];
 
-  constructor(public dialog: MatDialog) {
-    this.dataSource.data = TREE_DATA;
+  constructor(public dialog: MatDialog, private firestore: AngularFirestore) {
   }
 
   ngOnInit(): void {
+    this.firestore
+    .collection('channels')
+    .valueChanges()
+    .subscribe((changes: any) => {
+      this.channels = changes.filter((item) => item.name != null);
+      console.log('Channels : ', this.channels);
+      TREE_DATA[0].children = this.channels;
+      this.dataSource.data = TREE_DATA;
+    });
   }
 
   openDialog(): void {
