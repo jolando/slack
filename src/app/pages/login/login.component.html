@@ -1,13 +1,14 @@
 <div class="container">
   <ngx-auth-firebaseui
+    mat-app-background
     [guestEnabled]="true"
     appearance="legacy"
     [providers]="[]"
-    [signOutText]="'sdfsdf'"
-
-    class="width" (onSuccess)="printUser($event)"
-    (onError)="printError($event)">
+    class="width"
+    (onSuccess)="printUser($event)"
+    (onError)="printError($event)"
+  >
   </ngx-auth-firebaseui>
 </div>
 
-<div #output>{{event | json}}</div>
+<div #output>{{ event | json }}</div>

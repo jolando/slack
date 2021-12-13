@@ -1,9 +1,50 @@
 .menu-settings {
   width: 1000px;
   min-width: 200px !important;
+  margin: 0 200px;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 0 20px;
+
+  padding: 0px 16px;
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+  }
+}
+
+.mat-slide-toggle {
+  margin: 8px 16px;
 }
 
 .online-icon {
   color: green;
   font-size: 10px;
+  margin-left: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.logout {
+  color: red;
+}
+
+.afk {
+  color: rgb(194, 172, 74);
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+.status-btn {
+  margin: 10px 16px;
 }
