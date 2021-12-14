@@ -14,7 +14,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 
 export class ChatComponent implements OnInit {
-  message: string = '';
+  messageText: string = '';
+  message = {};
   messages = [];
 
 
@@ -28,9 +29,8 @@ export class ChatComponent implements OnInit {
     .doc('tHvLHahPsEcAJ7qHsHmy')
     .valueChanges()
     .subscribe((changes: any) =>{
-      console.log(changes);
       
-      this.messages = changes;
+      this.messages = changes.messages;
     });
     
   }
@@ -41,10 +41,16 @@ export class ChatComponent implements OnInit {
       event.preventDefault();
     }
     
-    if(this.message.replace(/\s/g, '').length){
-      
-      this.message = '';
-      
+    if(this.messageText.replace(/\s/g, '').length){
+      this.message['messageText'] = this.messageText;
+      this.message['sentBy'] = 'userID';
+      this.message['timeStamp'] = 'time';
+
+
+      this.messages.push(this.message);
+      this.updateFirebase();
+      this.messageText = '';
+      this.message = {};
     }
     
   }
@@ -54,7 +60,7 @@ export class ChatComponent implements OnInit {
     .collection('channels')
     .doc('tHvLHahPsEcAJ7qHsHmy')
     .update({
-      messages: this.message
+      messages: this.messages
     })
   }
 }

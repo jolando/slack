@@ -5,8 +5,8 @@
 
 .message-container {
     display: flex;
-
-    &:hover{
+    padding: 10px 36px;
+    &:hover {
         background-color: #9191911c;
     }
     img {
@@ -21,6 +21,9 @@
         font: 500 15px / 14px Roboto, "Helvetica Neue", sans-serif;
         letter-spacing: normal;
         margin: 0 0 8px;
+    }
+    p {
+        margin: 0;
     }
 }
 
