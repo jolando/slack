@@ -5,36 +5,28 @@
     <div mat-dialog-content>
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput 
-                required [(ngModel)]="channel.name" 
-                class="create-channel-dailog-input" 
-                placeholder="# z.B.budget-planug"
-                [formControl]="nameFormControl" 
-                [errorStateMatcher]="matcher">
-            
+            <input matInput required [(ngModel)]="channel.name" class="create-channel-dailog-input" placeholder="# z.B.budget-planug" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+
             <mat-error *ngIf="nameFormControl.hasError('required')">
                 Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-    
+
     </div>
     <div mat-dialog-content>
         <mat-form-field appearance="fill">
             <mat-label>Beschreibung (optional)</mat-label>
-            <input matInput 
-                [(ngModel)]="channel.description" 
-                class="create-channel-dailog-input">
+            <input matInput [(ngModel)]="channel.description" class="create-channel-dailog-input">
         </mat-form-field>
     </div>
-    
-    <ng-select class="user-select" [multiple]="true" [(ngModel)]="selectedUsers" [openOnEnter]="false">
+
+    <!-- <ng-select class="user-select" [multiple]="true" [(ngModel)]="selectedUsers" [openOnEnter]="false">
         <ng-option *ngFor="let user of users" [value]="user.uid">{{user.displayName}}</ng-option>
-    </ng-select>
-    
+    </ng-select> -->
+
     <!-- <br/>Selected car ID: {{selectedUsers | json}} -->
     <div mat-dialog-actions class="dialog-button-container">
-      <button mat-button (click)="onNoClick()">No Thanks</button>
-      <button mat-button cdkFocusInitial (click)="save()">Erstellen</button>
+        <button mat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-button cdkFocusInitial (click)="save()">Erstellen</button>
     </div>
 </form>
-

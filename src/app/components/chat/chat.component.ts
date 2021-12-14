@@ -1,7 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { User } from 'src/app/pages/login/user';
+import { chatMessage } from 'src/app/models/chatMessage.class';
 
 
 
@@ -15,52 +17,94 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 export class ChatComponent implements OnInit {
   messageText: string = '';
-  message = {};
-  messages = [];
+  message: chatMessage;
+  messagesAsJSON = [];
+  messagesAsOject = [];
+  currentUser: User;
+
+  @ViewChild('messages') private myScrollContainer: ElementRef;
 
 
 
   constructor(private router: Router, public firestore: AngularFirestore) { }
 
   ngOnInit(): void {
-    
+
     this.firestore
-    .collection('channels')
-    .doc('tHvLHahPsEcAJ7qHsHmy')
-    .valueChanges()
-    .subscribe((changes: any) =>{
-      
-      this.messages = changes.messages;
-    });
+      .collection('channels')
+      .doc('tHvLHahPsEcAJ7qHsHmy')
+      .valueChanges()
+      .subscribe((changes: any) => {
+
+        this.messagesAsJSON = changes.messages;
+        this.parseAsObject();
+
+      });
+
+    this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+  }
+   ngAfterViewInit() {
+    this.scrollToBottom();
+   }
+
+  scrollToBottom(): void {
+
+    setTimeout(() => {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }, 200);
     
+
   }
 
-  sendMessage(event?){
-    
-    if(event){
+  parseAsObject() {
+    let messagesAsOject = [];
+    this.messagesAsJSON.forEach(message => {
+      let messageAsOject = new chatMessage(
+        message.messageText,
+        message.sentBy,
+        message.timeStamp
+      )
+      messagesAsOject.push(messageAsOject);
+    });
+
+    this.messagesAsOject = messagesAsOject;
+  }
+
+  sendMessage(event?) {
+
+    if (event) {
       event.preventDefault();
     }
-    
-    if(this.messageText.replace(/\s/g, '').length){
-      this.message['messageText'] = this.messageText;
-      this.message['sentBy'] = 'userID';
-      this.message['timeStamp'] = 'time';
 
+    if (this.messageText.replace(/\s/g, '').length) {
 
-      this.messages.push(this.message);
+      this.createMessage();
+
+      this.messagesAsJSON.push(this.message.toJSON());
+
       this.updateFirebase();
       this.messageText = '';
-      this.message = {};
+      this.scrollToBottom();
     }
-    
+
   }
 
-  updateFirebase(){
-    this.firestore
-    .collection('channels')
-    .doc('tHvLHahPsEcAJ7qHsHmy')
-    .update({
-      messages: this.messages
-    })
+  createMessage() {
+    this.message = new chatMessage(
+      this.messageText,
+      this.currentUser.displayName);
   }
+
+
+
+  updateFirebase() {
+    this.firestore
+      .collection('channels')
+      .doc('tHvLHahPsEcAJ7qHsHmy')
+      .update({
+        messages: this.messagesAsJSON
+      })
+  }
+
 }
