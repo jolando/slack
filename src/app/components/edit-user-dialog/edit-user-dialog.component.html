@@ -1,0 +1,42 @@
+<div class="edit-user-container">
+  <div>
+    <h2 mat-dialog-title>Dein Profil bearbeiten</h2>
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Anzeigename</mat-label>
+      <input class="input" matInput type="text" [(ngModel)]="value" #name />
+      <button
+        *ngIf="value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="value = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Abbrechen</button>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="updateName()"
+        mat-dialog-close
+      >
+        Speichern
+      </button>
+    </mat-dialog-actions>
+  </div>
+  <div class="profile-photo-container">
+    <img src="../../../assets/img/user.png" alt="" />
+
+    <input
+      style="display: none"
+      type="file"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <button mat-button (click)="fileInput.click()">Select File</button>
+    <button mat-button (click)="onUpload()" mat-dialog-close>Upload!</button>
+  </div>
+</div>

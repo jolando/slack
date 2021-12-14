@@ -1,0 +1,27 @@
+<ng-container class="profile-box">
+  <div class="test">
+    <img src="{{ currentProfileImg }}" alt="" />
+  </div>
+  <h2 class="name-field">{{ displayName }}</h2>
+  <div class="options-container">
+    <mat-icon>edit</mat-icon>
+    <button mat-button (click)="openDialog()" mat-dialog-close="true">
+      Profil<br />
+      bearbeiten
+    </button>
+  </div>
+  <div class="display-user-info">
+    <div class="controll">
+      <h5>Anzeigename</h5>
+      <span>{{ displayName }}</span>
+    </div>
+    <div class="controll">
+      <h5>Ortszeit</h5>
+      <span>{{ rxTime | date: "hh:mm:ss a" }}</span>
+    </div>
+    <div class="controll">
+      <h5>E-mail Adresse</h5>
+      <span>{{ email }}</span>
+    </div>
+  </div>
+</ng-container>

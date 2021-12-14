@@ -36,6 +36,29 @@
     margin-right: 12px !important;
 }
 
+
+.example-container {
+  width: 500px;
+  min-height: 100vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.mat-menu-content {
+  margin: 100px !important;
+}
+
 mat-sidenav-content {
     height: calc(100vh - 50px);
 }
+
