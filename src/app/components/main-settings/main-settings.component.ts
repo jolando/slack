@@ -47,7 +47,6 @@ export class MainSettingsComponent implements OnInit {
       .valueChanges()
       .subscribe((docRef) => {
         this.updateUser = docRef;
-        console.log(docRef);
       });
   }
 

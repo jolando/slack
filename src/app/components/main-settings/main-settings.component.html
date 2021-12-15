@@ -1,5 +1,12 @@
 <div class="profile-container">
-  <img src="{{ updateUser.photoURL }}" />
+  <img
+    *ngIf="updateUser.photoURL"
+    src="{{
+      updateUser.photoURL
+        ? updateUser.photoURL
+        : '../../../../../assets/img/user.png'
+    }}"
+  />
   <div class="center">
     <mat-card-title>{{
       currentUser.displayName ? updateUser.displayName : "Guest"

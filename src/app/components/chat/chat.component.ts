@@ -31,6 +31,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
 
     this.firestore
+
       .collection('channels')
       .doc('tHvLHahPsEcAJ7qHsHmy')
       .valueChanges()
