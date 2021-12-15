@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit {
     .subscribe((changes: any) =>{
       console.log(changes);
       
-      this.messages = changes;
+      //this.messages = changes;
     });
     
   }

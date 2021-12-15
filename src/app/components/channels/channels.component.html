@@ -2,7 +2,7 @@
     <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node 
       class="channels-tree-node"
-      *matTreeNodeDef="let node" 
+      *matTreeNodeDef="let node; when: isTopLevel" 
       matTreeNodePadding>
       <!-- use a disabled button to provide padding for tree leaf -->
       <button mat-icon-button disabled></button>
@@ -17,7 +17,7 @@
     <mat-tree-node
       (mouseover)="moreOptions=true"
       (mouseout)="moreOptions=false" 
-      *matTreeNodeDef="let node; when: hasChild"
+      *matTreeNodeDef="let node"
       matTreeNodePadding
       class="channels-tree-father"
     >
@@ -50,12 +50,6 @@
     </mat-tree-node>
 </mat-tree>
 
-<mat-menu #menuDot="matMenu">
-  <button mat-menu-item>Channels durchsuchen</button>
-  <button mat-menu-item>Channels erstellen</button>
-</mat-menu>
-
 <mat-menu #menuPlus="matMenu">
-  <button mat-menu-item>Channels durchsuchen</button>
   <button (click)="openDialog()" mat-menu-item>Channels erstellen</button>
 </mat-menu>
