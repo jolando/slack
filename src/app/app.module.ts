@@ -39,7 +39,7 @@ import { ImprintComponent } from './components/imprint/imprint.component';
 import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
 import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
-import { NgSelectModule } from '@ng-select/ng-select';
+// import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -114,7 +114,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatSlideToggleModule,
     FormsModule,
     MatCardModule,
-    NgSelectModule
+    // NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

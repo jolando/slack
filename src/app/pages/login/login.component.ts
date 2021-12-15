@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   currentUser: User = {
     uid: '',
-    photoUrl: '',
+    // photoUrl: '',
     email: '',
     providerId: '',
     displayName: '',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.currentUser = {
       uid: event.uid,
       email: event.email,
-      photoUrl: event.photoUrl,
+      // photoUrl: event.photoUrl,
       displayName: event.displayName,
       providerId: event.providerId,
     };
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     //   .doc(event.uid)
     //   .get()
     //   .then(el => this.user.push(el.data()))
-    sessionStorage.setItem('loggedInUser', JSON.stringify(this.currentUser))
+    sessionStorage.setItem('loggedInUser', JSON.stringify(this.currentUser));
   }
 
   printError(event: any) {
