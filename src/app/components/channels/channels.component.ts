@@ -13,13 +13,17 @@ import { Channel } from 'src/app/models/channel.class';
  */
 interface TreeNode {
   name: string;
+  level: number;
   children?: TreeNode[];
 }
 
 const TREE_DATA: TreeNode[] = [
   {
     name: 'Channels',
-    children: [{ name: 'allgemein' }, { name: 'bewebung' }, { name: 'javascript' }],
+    level: 1,
+    children: [ { name: 'allgemein', level: 2 }, 
+                { name: 'bewebung' , level: 2  }, 
+                { name: 'javascript', level: 2 }],
   }
 ];
 
@@ -87,4 +91,6 @@ export class ChannelsComponent implements OnInit {
 
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  isTopLevel = (_: number, node: ExampleFlatNode) => node.level == 1;
 }

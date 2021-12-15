@@ -16,13 +16,17 @@ import { Observable } from 'rxjs';
  */
  interface TreeNode {
   displayName: string;
+  level: number;
   children?: TreeNode[];
 }
 
 const TREE_DATA: TreeNode[] = [
   {
     displayName: 'Direktnachrichten',
-    children: [{ displayName: 'Junus Ergin' }, { displayName: 'Manuel Thaler' }, { displayName: 'Mihai' }],
+    level: 1,
+    children: [ { displayName: 'Junus Ergin', level: 2 }, 
+                { displayName: 'Manuel Thaler', level: 2 }, 
+                { displayName: 'Mihai', level: 2 }],
   }
 ];
 
@@ -49,6 +53,7 @@ export class DirectMessagesComponent implements OnInit {
   messages: any = [];
   counterUserList: any = [];
   currentUserId: string = '';
+  counterUserId: string = '';
 
   constructor(private firebaseAuth: AngularFireAuth, 
               private dialog: MatDialog, 
@@ -66,13 +71,17 @@ export class DirectMessagesComponent implements OnInit {
     .collection('directMessages')
     .valueChanges()
     .subscribe((changes: any) => {
+      this.messages = [];
+      this.counterUserList = [];
       this.messages = changes;
-
       this.messages.forEach(element => {
-        console.log('userId : ',element.userIdList)
-        let tempUser = this.users.filter( user => user.uid == element.userIdList)[0];
+        //console.log('userId : ',element.userIdList)
+        this.counterUserId = element.userIdList.filter(userId => userId != this.currentUserId)[0];
+        let tempUser = this.users.filter( user => user.uid == this.counterUserId)[0];
         // console.log('displayName : ', tempUser[0].displayName)
-        this.counterUserList.push(tempUser);
+        //if (!this.counterUserList.filter(user => user.uid == tempUser.uid)) {
+          this.counterUserList.push(tempUser);
+        //}
       });
       console.log('counterUserList : ', this.counterUserList);
       TREE_DATA[0].children = this.counterUserList;
@@ -129,6 +138,7 @@ export class DirectMessagesComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  isTopLevel = (_: number, node: ExampleFlatNode) => node.level == 1;
 }

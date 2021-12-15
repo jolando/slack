@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Channel } from 'src/app/models/channel.class';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -26,12 +27,18 @@ export class AddChannelDialogComponent implements OnInit {
   channel: Channel =  new Channel();
   selectedUsers: any = [];
   users: any = [];
+  currentUserId: string = '';
 
 
-  constructor(public dialogRef: MatDialogRef<AddChannelDialogComponent>, 
+  constructor(private firebaseAuth: AngularFireAuth, 
+              public dialogRef: MatDialogRef<AddChannelDialogComponent>, 
               private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
+    this.firebaseAuth.authState.subscribe(user => {
+      console.log('User id : ', user.uid);
+      this.currentUserId = user.uid;
+     });
     this.firestore
       .collection('users')
       .valueChanges()
@@ -47,6 +54,8 @@ export class AddChannelDialogComponent implements OnInit {
 
   save(): void {
     console.log('Selected users : ', this.selectedUsers);
+    this.channel.createdBy = this.currentUserId;
+    this.selectedUsers.push(this.currentUserId);
     this.channel.userIdList = this.selectedUsers;
     this.firestore.collection('channels').add(this.channel.toJSON()).then(
       (result:any) => {

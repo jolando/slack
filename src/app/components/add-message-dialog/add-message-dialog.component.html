@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Nachrichten erstellen</h1>
 <p>Channels dienen deinem Team zur Kommunikation. Am besten sollten </p>
 
-<ng-select class="user-select" [multiple]="false" [(ngModel)]="counterUserId" [openOnEnter]="false">
+<ng-select class="user-select" [multiple]="false" [(ngModel)]="counterpartId" [openOnEnter]="false">
     <ng-option *ngFor="let user of users" [value]="user.uid">{{user.displayName}}</ng-option>
 </ng-select>
 
