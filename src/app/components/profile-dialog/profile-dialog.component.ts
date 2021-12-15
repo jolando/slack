@@ -31,6 +31,7 @@ export class ProfileDialogComponent implements OnInit {
     // }
     this.currentProfileImg = this.data.user.photoURL;
     this.displayName = this.data.user.displayName;
+    this.email = this.data.user.email;
     this.updateClock();
   }
 
