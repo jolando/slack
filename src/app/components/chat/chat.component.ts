@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { User } from 'src/app/pages/login/user';
 import { chatMessage } from 'src/app/models/chatMessage.class';
 
@@ -21,42 +21,67 @@ export class ChatComponent implements OnInit {
   messagesAsJSON = [];
   messagesAsOject = [];
   currentUser: User;
+  chatUsers = [];
+  currentChat;
 
   @ViewChild('messages') private myScrollContainer: ElementRef;
-
 
 
   constructor(private router: Router, public firestore: AngularFirestore) { }
 
   ngOnInit(): void {
-
-    this.firestore
-
-      .collection('channels')
-      .doc('tHvLHahPsEcAJ7qHsHmy')
-      .valueChanges()
-      .subscribe((changes: any) => {
-
-        this.messagesAsJSON = changes.messages;
-        this.parseAsObject();
-
-      });
-
+    this.subscribeChat();
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
 
   }
-   ngAfterViewInit() {
+
+  ngAfterViewInit() {
     this.scrollToBottom();
-   }
+  }
 
   scrollToBottom(): void {
 
     setTimeout(() => {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     }, 200);
-    
+
 
   }
+
+  subscribeChat() {
+    this.firestore
+      .collection('channels')
+      .doc('1jhjwerWlj2ew4IDaO9Q')
+      .valueChanges()
+      .subscribe((changes: any) => {
+
+        this.currentChat = changes;
+
+        this.getChatUsers();
+        this.messagesAsJSON = this.currentChat.messages;
+        this.parseAsObject();
+
+      });
+  }
+
+  getChatUsers() {
+    let chatUsers = [];
+    this.currentChat.userIdList.forEach(userId => {
+      console.log(userId);
+      this.firestore
+        .collection("users")
+        .doc(userId)
+        .get()
+        .toPromise()
+        .then((user: any) => {
+          chatUsers.push(user.data())
+           
+        })
+    })
+    this.chatUsers = chatUsers;
+
+  }
+
 
   parseAsObject() {
     let messagesAsOject = [];
@@ -70,6 +95,7 @@ export class ChatComponent implements OnInit {
     });
 
     this.messagesAsOject = messagesAsOject;
+
   }
 
   sendMessage(event?) {
@@ -102,7 +128,7 @@ export class ChatComponent implements OnInit {
   updateFirebase() {
     this.firestore
       .collection('channels')
-      .doc('tHvLHahPsEcAJ7qHsHmy')
+      .doc('1jhjwerWlj2ew4IDaO9Q')
       .update({
         messages: this.messagesAsJSON
       })
