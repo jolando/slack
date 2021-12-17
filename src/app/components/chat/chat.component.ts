@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   messageText: string = '';
   message: chatMessage;
   messagesAsJSON = [];
-  messagesAsOject = [];
+  messagesAsObject = [];
   currentUser: User;
   chatUsers = [];
   currentChat;
@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeChat();
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+console.log(this.currentUser.photoUrl);
 
   }
 
@@ -58,7 +59,7 @@ export class ChatComponent implements OnInit {
         this.currentChat = changes;
 
         this.getChatUsers();
-        this.messagesAsJSON = this.currentChat.messages;
+        this.messagesAsJSON = this.currentChat.messages ? this.currentChat.messages : [];
         this.parseAsObject();
 
       });
@@ -84,17 +85,17 @@ export class ChatComponent implements OnInit {
 
 
   parseAsObject() {
-    let messagesAsOject = [];
+    let messagesAsObject = [];
     this.messagesAsJSON.forEach(message => {
-      let messageAsOject = new chatMessage(
+      let messageAsObject = new chatMessage(
         message.messageText,
         message.sentBy,
         message.timeStamp
       )
-      messagesAsOject.push(messageAsOject);
+      messagesAsObject.push(messageAsObject);
     });
 
-    this.messagesAsOject = messagesAsOject;
+    this.messagesAsObject = messagesAsObject;
 
   }
 
