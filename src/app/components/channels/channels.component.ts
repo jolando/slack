@@ -6,12 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddChannelDialogComponent } from '../add-channel-dialog/add-channel-dialog.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Channel } from 'src/app/models/channel.class';
+import { map } from 'rxjs/operators';
+import { identifierModuleUrl } from '@angular/compiler';
 
 /**
  * Food data with nested structure.
  * Each node has a name and an optional list of children.
  */
 interface TreeNode {
+  id: string;
   name: string;
   level: number;
   children?: TreeNode[];
@@ -19,11 +22,12 @@ interface TreeNode {
 
 const TREE_DATA: TreeNode[] = [
   {
+    id: 'channels',
     name: 'Channels',
     level: 1,
-    children: [ { name: 'allgemein', level: 2 }, 
-                { name: 'bewebung' , level: 2  }, 
-                { name: 'javascript', level: 2 }],
+    children: [ { id: '1', name: 'allgemein', level: 2 }, 
+                { id: '2', name: 'bewebung' , level: 2  }, 
+                { id: '3', name: 'javascript', level: 2 }],
   }
 ];
 
@@ -54,13 +58,33 @@ export class ChannelsComponent implements OnInit {
   ngOnInit(): void {
     this.firestore
     .collection('channels')
-    .valueChanges()
+    .snapshotChanges()
+    .pipe(
+      map(changes => {
+        return changes.map(change => {
+          const data = change.payload.doc.data();
+          const id = change.payload.doc.id;
+          return { id, ...(data as object) };
+        });     
+      }
+      )
+    )
     .subscribe((changes: any) => {
       this.channels = changes.filter((item) => item.name != null);
       console.log('Channels : ', this.channels);
       TREE_DATA[0].children = this.channels;
+
       this.dataSource.data = TREE_DATA;
-    });
+      console.log('dataSource.data : ', this.dataSource.data);
+      }
+    )
+    // .valueChanges()
+    // .subscribe((changes: any) => {
+    //   this.channels = changes.filter((item) => item.name != null);
+    //   console.log('Channels : ', this.channels);
+    //   TREE_DATA[0].children = this.channels;
+    //   this.dataSource.data = TREE_DATA;
+    // });
   }
 
   openDialog(): void {
@@ -72,6 +96,7 @@ export class ChannelsComponent implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       level: level,
+      id: node.id,
     };
   };
 
