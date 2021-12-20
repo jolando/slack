@@ -53,10 +53,10 @@ export class DirectMessagesComponent implements OnInit {
   faEllipsisV = faEllipsisV;
   faPlus = faPlus;
   users: any = [];
-  messages: any = [];
   counterUserList: any = [];
   currentUserId: string = '';
   counterUserId: string = '';
+  directMessages: any = [];
 
   constructor(private firebaseAuth: AngularFireAuth,
     private dialog: MatDialog,
@@ -66,61 +66,45 @@ export class DirectMessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.firebaseAuth.authState.subscribe(user => {
-      console.log('User id : ', user.uid);
+      //console.log('User id : ', user.uid);
       this.currentUserId = user.uid;
     });
     this.getUserList();
     this.firestore
       .collection('directMessages')
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(change => {
-            const data = change.payload.doc.data();
-            const id = change.payload.doc.id;
-            return { id, ...(data as object) };
-          });
+      // .snapshotChanges()
+      // .pipe(
+      //   map(changes => {
+      //     return changes.map(change => {
+      //       const data = change.payload.doc.data();
+      //       const id = change.payload.doc.id;
+      //       return { id, ...(data as object) };
+      //     });
+      //   }
+      //   )
+      // )
+    .valueChanges({idField: 'docId'})
+    .subscribe((changes: any) => {
+      this.directMessages = [];
+      this.counterUserList = [];
+      this.directMessages = changes;
+      this.directMessages.forEach(element => {
+        //console.log('userId : ',element.userIdList)
+        let currentUserInList = element.userIdList.filter(userId => userId == this.currentUserId)[0];
+        if (currentUserInList) {
+          this.counterUserId = element.userIdList.filter(userId => userId != this.currentUserId)[0];
+          let tempUser = this.users.filter(user => user.uid == this.counterUserId)[0];
+          console.log('tempUser : ', tempUser)
+          tempUser.uid = element.docId;
+          //console.log('tempUser : ', tempUser)
+          this.counterUserList.push(tempUser);
         }
-        )
-      ).subscribe(changes => {
-          console.log('new data', changes);
-          this.messages = [];
-          this.counterUserList = [];
-          this.messages = changes;
-          this.messages.forEach(element => {
-            //console.log('userId : ',element.userIdList)
-            this.counterUserId = element.userIdList.filter(userId => userId != this.currentUserId)[0];
-            let tempUser = this.users.filter(user => user.uid == this.counterUserId)[0];
-            // console.log('displayName : ', tempUser[0].displayName)
-            //if (!this.counterUserList.filter(user => user.uid == tempUser.uid)) {
-            this.counterUserList.push(tempUser);
-            //}
-          });
-          console.log('counterUserList : ', this.counterUserList);
-          TREE_DATA[0].children = this.counterUserList;
-          console.log('TREE_DATA : ', TREE_DATA);
-          this.dataSource.data = TREE_DATA;
-        }
-      )
-    // .valueChanges()
-    // .subscribe((changes: any) => {
-    //   this.messages = [];
-    //   this.counterUserList = [];
-    //   this.messages = changes;
-    //   this.messages.forEach(element => {
-    //     //console.log('userId : ',element.userIdList)
-    //     this.counterUserId = element.userIdList.filter(userId => userId != this.currentUserId)[0];
-    //     let tempUser = this.users.filter( user => user.uid == this.counterUserId)[0];
-    //     // console.log('displayName : ', tempUser[0].displayName)
-    //     //if (!this.counterUserList.filter(user => user.uid == tempUser.uid)) {
-    //       this.counterUserList.push(tempUser);
-    //     //}
-    //   });
-    //   console.log('counterUserList : ', this.counterUserList);
-    //   TREE_DATA[0].children = this.counterUserList;
-    //   console.log('TREE_DATA : ', TREE_DATA);
-    //   this.dataSource.data = TREE_DATA;
-    // });
+      });
+      console.log('counterUserList : ', this.counterUserList);
+      TREE_DATA[0].children = this.counterUserList;
+      // console.log('TREE_DATA : ', TREE_DATA);
+      this.dataSource.data = TREE_DATA;
+    });
   }
 
   openDialog(): void {

@@ -1,7 +1,6 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node 
-      class="channels-tree-node"
       *matTreeNodeDef="let node; when: isTopLevel" 
       matTreeNodePadding>
       <!-- use a disabled button to provide padding for tree leaf -->
