@@ -6,12 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
 import { AngularFireStorageModule } from '@angular/fire/storage';
-
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ChannelsComponent } from './components/channels/channels.component';

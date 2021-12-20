@@ -7,11 +7,27 @@ import { LoggedInGuard } from 'ngx-auth-firebaseui';
 
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { DataPrivacyComponent } from './components/data-privacy/data-privacy.component';
+import { ChatComponent } from './components/chat/chat.component';
+
 
 //import { ChatComponent } from './components/chat/chat.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'home', component: MenuComponent, canActivate: [LoggedInGuard] },
+  { 
+    path: 'home', 
+    component: MenuComponent, 
+    //canActivate: [LoggedInGuard],
+    children: [
+      {
+        path: 'chat/channels/:id',
+        component: ChatComponent
+     },
+     {
+        path: 'chat/direct-messages/:id',
+        component: ChatComponent
+     }
+    ]
+  },
   { path: 'imprint', component: ImprintComponent, outlet: 'main-content', canActivate: [LoggedInGuard] },
   { path: 'data-privacy', component: DataPrivacyComponent, outlet: 'main-content', canActivate: [LoggedInGuard] },
 
