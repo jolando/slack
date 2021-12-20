@@ -76,7 +76,7 @@ export class ChannelsComponent implements OnInit {
       TREE_DATA[0].children = this.channels;
 
       this.dataSource.data = TREE_DATA;
-      console.log('dataSource.data : ', this.dataSource.data);
+      //console.log('dataSource.data : ', this.dataSource.data);
       }
     )
     // .valueChanges()
