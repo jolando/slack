@@ -6,7 +6,7 @@
     </mat-toolbar>
     <div #messages class="messages-container">
         <div *ngFor="let message of messagesAsObject;" class="message-container">
-            <img id="profile-img" src= '{{ currentUser.photoUrl }}' alt="profile-img">
+            <img id="profile-img" src='{{ currentUser.photoUrl }}' alt="profile-img">
             <div class="message">
                 <div class="message-info">
                     <span class="name">{{message.sentBy}}</span>

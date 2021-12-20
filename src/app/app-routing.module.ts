@@ -10,7 +10,6 @@ import { DataPrivacyComponent } from './components/data-privacy/data-privacy.com
 import { ChatComponent } from './components/chat/chat.component';
 
 
-//import { ChatComponent } from './components/chat/chat.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { 
@@ -19,11 +18,11 @@ const routes: Routes = [
     //canActivate: [LoggedInGuard],
     children: [
       {
-        path: 'chat/channels/:id',
+        path: 'chat/:chatType/:id',
         component: ChatComponent
      },
      {
-        path: 'chat/direct-messages/:id',
+        path: 'chat/:chatType/:id',
         component: ChatComponent
      }
     ]
