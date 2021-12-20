@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { User } from 'src/app/pages/login/user';
 import { chatMessage } from 'src/app/models/chatMessage.class';
 
@@ -19,57 +19,106 @@ export class ChatComponent implements OnInit {
   messageText: string = '';
   message: chatMessage;
   messagesAsJSON = [];
-  messagesAsOject = [];
+  messagesAsObject = [];
   currentUser: User;
+  chatUsers = [];
+  currentChat;
+  chatId;
+  chatType;
 
   @ViewChild('messages') private myScrollContainer: ElementRef;
 
 
-
-  constructor(private router: Router, public firestore: AngularFirestore) { }
+  constructor(private router: Router, public firestore: AngularFirestore, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-    this.firestore
-
-      .collection('channels')
-      .doc('tHvLHahPsEcAJ7qHsHmy')
-      .valueChanges()
-      .subscribe((changes: any) => {
-
-        this.messagesAsJSON = changes.messages;
-        this.parseAsObject();
-
-      });
-
+    this.getRouterParams();
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    // console.log(this.currentUser.photoUrl);
 
   }
-   ngAfterViewInit() {
+
+  ngAfterViewInit() {
     this.scrollToBottom();
-   }
+  }
 
   scrollToBottom(): void {
 
     setTimeout(() => {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     }, 200);
-    
+
 
   }
 
-  parseAsObject() {
-    let messagesAsOject = [];
-    this.messagesAsJSON.forEach(message => {
-      let messageAsOject = new chatMessage(
-        message.messageText,
-        message.sentBy,
-        message.timeStamp
-      )
-      messagesAsOject.push(messageAsOject);
-    });
+  getRouterParams() {
+    
+    this.route.paramMap.subscribe(paramMap => {
+      this.chatType = paramMap.get('chatType');
+      this.chatId = paramMap.get('id');
+      console.log(this.chatType);
+      console.log(this.chatId);
+      
+      this.subscribeChat();
 
-    this.messagesAsOject = messagesAsOject;
+    })
+  }
+
+  subscribeChat() {
+    this.firestore
+      .collection(this.chatType)
+      .doc(this.chatId)
+      .valueChanges()
+      .subscribe((changes: any) => {
+
+        this.currentChat = changes;
+
+        this.getChatUsers();
+        this.messagesAsJSON = this.currentChat.messages ? this.currentChat.messages : [];
+        this.parseAsObject();
+
+      });
+  }
+
+  getChatUsers() {
+    let chatUsers = [];
+    this.currentChat.userIdList.forEach(userId => {
+      console.log(userId);
+      this.firestore
+        .collection("users")
+        .doc(userId)
+        .get()
+        .toPromise()
+        .then((user: any) => {
+          chatUsers.push(user.data())
+
+        })
+    })
+    this.chatUsers = chatUsers;
+
+  }
+
+
+  parseAsObject() {
+    let messagesAsObject = [];
+    console.log(this.messagesAsJSON);
+    
+    if(this.messagesAsJSON){
+      this.messagesAsJSON.forEach(message => {
+        let messageAsObject = new chatMessage(
+          message.messageText,
+          message.sentBy,
+          message.timeStamp
+        )
+        messagesAsObject.push(messageAsObject);
+      
+      });
+  
+      this.messagesAsObject = messagesAsObject;
+     
+    }
+    
+
   }
 
   sendMessage(event?) {
@@ -81,6 +130,7 @@ export class ChatComponent implements OnInit {
     if (this.messageText.replace(/\s/g, '').length) {
 
       this.createMessage();
+console.log(this.messagesAsJSON);
 
       this.messagesAsJSON.push(this.message.toJSON());
 
@@ -101,8 +151,8 @@ export class ChatComponent implements OnInit {
 
   updateFirebase() {
     this.firestore
-      .collection('channels')
-      .doc('tHvLHahPsEcAJ7qHsHmy')
+      .collection(this.chatType)
+      .doc(this.chatId)
       .update({
         messages: this.messagesAsJSON
       })

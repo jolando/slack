@@ -51,6 +51,7 @@ export class ChannelsComponent implements OnInit {
   faPlus = faPlus;
   moreOptions: boolean = false;
   channels: any = [];
+  chatType = 'channels'
 
   constructor(public dialog: MatDialog, private firestore: AngularFirestore) {
   }

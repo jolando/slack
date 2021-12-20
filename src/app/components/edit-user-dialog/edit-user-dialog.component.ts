@@ -26,6 +26,7 @@ export class EditUserDialogComponent implements OnInit, MatFormFieldModule {
   ) {}
 
   ngOnInit(): void {
+    //current User should be subscribed from firebase
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
   }
 
