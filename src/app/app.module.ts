@@ -6,12 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
 import { AngularFireStorageModule } from '@angular/fire/storage';
-
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ChannelsComponent } from './components/channels/channels.component';
@@ -40,7 +37,6 @@ import { DataPrivacyComponent } from './components/data-privacy/data-privacy.com
 import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 import { AddMessageDialogComponent } from './components/add-message-dialog/add-message-dialog.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-
 
 @NgModule({
   declarations: [

@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     //   .doc(event.uid)
     //   .get()
     //   .then(el => this.user.push(el.data()))
-    sessionStorage.setItem('loggedInUser', JSON.stringify(this.currentUser))
+    sessionStorage.setItem('loggedInUser', JSON.stringify(this.currentUser));
   }
 
   printError(event: any) {

@@ -5,8 +5,8 @@
 
 .message-container {
     display: flex;
-
-    &:hover{
+    padding: 10px 36px;
+    &:hover {
         background-color: #9191911c;
     }
     img {
@@ -16,11 +16,33 @@
     }
 }
 
+.messages-container {
+    max-height: calc(100vh - 231px);
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
 .message {
     h3 {
         font: 500 15px / 14px Roboto, "Helvetica Neue", sans-serif;
         letter-spacing: normal;
         margin: 0 0 8px;
+    }
+    p {
+        margin: 0;
+    }
+    .message-info {
+        display: flex;
+        margin-bottom: 4px;
+        .name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .time {
+            font-weight: 100;
+            font-size: 11px;
+            margin-left: 6px;
+        }
     }
 }
 

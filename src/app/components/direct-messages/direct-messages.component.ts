@@ -47,6 +47,7 @@ interface ExampleFlatNode {
 })
 export class DirectMessagesComponent implements OnInit {
 
+  chatType = 'directMessages';
   moreOptions = false;
   faCaretRight = faCaretRight;
   faCaretDown = faCaretDown;

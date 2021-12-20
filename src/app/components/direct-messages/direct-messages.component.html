@@ -8,46 +8,34 @@
       <a href="" [routerLink]="['chat/direct-messages', node.uid]">{{ node.displayName }}</a>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
-    <mat-tree-node
-      (mouseover)="moreOptions=true"
-      (mouseout)="moreOptions=false" 
-      *matTreeNodeDef="let node"
-      matTreeNodePadding
-      class="channels-tree-father"
-    >
-    <div>
-      <button
-        mat-icon-button
-        matTreeNodeToggle
-        [attr.aria-label]="'Toggle ' + node.displayName"
-        
-      >
+    <mat-tree-node (mouseover)="moreOptions=true" (mouseout)="moreOptions=false" *matTreeNodeDef="let node" matTreeNodePadding class="channels-tree-father">
+        <div>
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.displayName">
         <fa-icon *ngIf="treeControl.isExpanded(node)" [icon]="faCaretDown"></fa-icon>
         <fa-icon *ngIf="!treeControl.isExpanded(node)" [icon]="faCaretRight"></fa-icon>
 
-      </button>
-      {{ node.displayName }}
-    </div>
-    <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
-      <ng-container matTreeNodeOutlet></ng-container>
-    </div>
-      <div>
-        <!-- <button mat-button [matMenuTriggerFor]="menuDot">
+      </button> {{ node.displayName }}
+        </div>
+        <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+        <div>
+            <!-- <button mat-button [matMenuTriggerFor]="menuDot">
           <fa-icon [icon]="faEllipsisV"></fa-icon>
         </button> -->
-  
-        <button mat-button [matMenuTriggerFor]="menuPlus">
+
+            <button mat-button [matMenuTriggerFor]="menuPlus">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
-      </div>
+        </div>
 
     </mat-tree-node>
-  </mat-tree>
+</mat-tree>
 
-  <mat-menu #menuDot="matMenu">
+<mat-menu #menuDot="matMenu">
     <button mat-menu-item>Direktnachrichten durchsuchen</button>
-  </mat-menu>
+</mat-menu>
 
-  <mat-menu #menuPlus="matMenu">
+<mat-menu #menuPlus="matMenu">
     <button (click)="openDialog()" mat-menu-item>Nachrichten erstellen</button>
-  </mat-menu>
+</mat-menu>

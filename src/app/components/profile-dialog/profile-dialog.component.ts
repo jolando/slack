@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
 import { map, share } from 'rxjs/operators';
-import { User } from 'src/app/pages/login/user';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
 
 @Component({
@@ -16,8 +15,7 @@ export class ProfileDialogComponent implements OnInit {
   subscription: Subscription;
   rxTime = new Date();
   intervalId;
-  currentUser: User;
-  currentProfileImg: string;
+  updateUser;
 
   constructor(
     public dialog: MatDialog,
@@ -25,12 +23,7 @@ export class ProfileDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    // if (this.currentUser.displayName) {
-
-    // }
-    this.currentProfileImg = this.data.user.photoURL;
-    this.displayName = this.data.user.displayName;
+    // this.displayName = this.data.user.displayName;
     this.updateClock();
   }
 

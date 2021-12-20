@@ -20,11 +20,12 @@ import { SetStatusDialogComponent } from '../set-status-dialog/set-status-dialog
 export class MainSettingsComponent implements OnInit {
   isDarkMode: boolean;
 
-  userImage: string = '../../../assets/img/user.png';
   userName: string;
   status: boolean = true;
 
   updateUser;
+  profileImg: string = '';
+
   currentUser: User;
 
   constructor(
@@ -47,8 +48,8 @@ export class MainSettingsComponent implements OnInit {
       .valueChanges()
       .subscribe((docRef) => {
         this.updateUser = docRef;
-        console.log(docRef);
       });
+    this.profileImg = this.updateUser.photoUrL;
   }
 
   openStatusDialog(): void {
@@ -68,10 +69,12 @@ export class MainSettingsComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(ProfileDialogComponent, {
+    let dialog = this.dialog.open(ProfileDialogComponent, {
       width: '550px',
-      data: { user: this.updateUser },
     });
+    if (this.updateUser) {
+      dialog.componentInstance.updateUser = this.updateUser;
+    }
   }
 
   toggleDarkMode(): void {

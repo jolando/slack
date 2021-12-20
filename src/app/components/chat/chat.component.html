@@ -1,14 +1,26 @@
 <div class="chat">
-    <div *ngFor="let message of messages;" class="message-container">
-        <img id="profile-img" src="assets/img/fabi.jpg" alt="profile-img">
-        <div class="message">
-            <h3>Fabian Gurth</h3>
-            <p style="white-space: pre-wrap">{{message}}</p>
-        </div>
+    <mat-toolbar>
+        <span *ngIf="currentChat"> {{ currentChat.name }}</span>
+        <div class="spacer"></div>
+        <span *ngFor="let user of chatUsers;"> {{ user.photoURL }}</span>
+    </mat-toolbar>
+    <div #messages class="messages-container">
+        <div *ngFor="let message of messagesAsObject;" class="message-container">
+            <img id="profile-img" src='{{ currentUser.photoUrl }}' alt="profile-img">
+            <div class="message">
+                <div class="message-info">
+                    <span class="name">{{message.sentBy}}</span>
+                    <span class="time">{{message.getHours()}}:{{message.getMinutes()}}Uhr</span>
+                </div>
 
+                <p style="white-space: pre-wrap">{{message.messageText}}</p>
+            </div>
+
+        </div>
     </div>
+
     <div class="message-input-container">
-        <textarea [(ngModel)]="message" (keydown.enter)="sendMessage($event)" placeholder="Nachricht senden..." cols="1" rows="1"></textarea>
+        <textarea [(ngModel)]="messageText" (keydown.enter)="sendMessage($event)" placeholder="Nachricht senden..." cols="1" rows="1"></textarea>
 
         <div class="toolbar">
             <div class="tools">
@@ -22,7 +34,7 @@
             </div>
 
             <div>
-                <mat-icon (click)="sendMessage()" [class.active]="message">send</mat-icon>
+                <mat-icon (click)="sendMessage()" [class.active]="messageText">send</mat-icon>
             </div>
         </div>
     </div>

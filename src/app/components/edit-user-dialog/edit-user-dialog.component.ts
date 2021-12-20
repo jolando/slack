@@ -26,6 +26,7 @@ export class EditUserDialogComponent implements OnInit, MatFormFieldModule {
   ) {}
 
   ngOnInit(): void {
+    //current User should be subscribed from firebase
     this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
   }
 
@@ -56,7 +57,7 @@ export class EditUserDialogComponent implements OnInit, MatFormFieldModule {
               if (url) {
                 console.log(url, 'done');
                 resolve(url);
-                this.updateFirestoreService.updateFirestore('photoURL', url)
+                this.updateFirestoreService.updateFirestore('photoUrL', url);
               }
             });
           })

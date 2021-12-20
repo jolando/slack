@@ -1,28 +1,16 @@
 <mat-toolbar color="primary" class="slack-space">
 
-  <button mat-button [matMenuTriggerFor]="belowMenu">
+    <button mat-button [matMenuTriggerFor]="belowMenu">
     <mat-icon>menu</mat-icon>
   </button>
-  <mat-menu #belowMenu="matMenu" xPosition="before">
-    <button
-      mat-menu-item
-      [routerLink]="['', { outlets: { imprint: ['imprint'] } }]"
-    >
+    <mat-menu #belowMenu="matMenu" xPosition="before">
+        <button mat-menu-item [routerLink]="['', { outlets: { imprint: ['imprint'] } }]">
       Impressum
     </button>
-    <button mat-menu-item>Datenschutz</button>
-  </mat-menu>
-
-    <mat-icon>menu</mat-icon>
+        <button mat-menu-item>Datenschutz</button>
+    </mat-menu>
     <div class="spacer"></div>
-    <form class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
-            <!-- <mat-label>Email</mat-label> -->
-            <input type="email" matInput placeholder="Search" />
-        </mat-form-field>
-    </form>
     <div class="spacer"></div>
-    <mat-icon>help</mat-icon>
 
 
     <button mat-button [matMenuTriggerFor]="beforeMenu">
@@ -78,20 +66,20 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar>
+        <!-- <mat-toolbar>
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon"
           >keyboard_double_arrow_right</mat-icon
         >
-      </button>
+      </button> -->
 
 
 
-            <!--TODO-->
-            <span ngNonBindable> {{ "current chat/channel" }}</span>
+        <!--TODO-->
+        <!-- <span ngNonBindable> {{ "current chat/channel" }}</span>
             <div class="spacer"></div>
             <span ngNonBindable> {{ "all members of chat/channel" }}</span>
-        </mat-toolbar>
+        </mat-toolbar> -->
 
         <div class="chat-container">
             <router-outlet></router-outlet>
@@ -100,4 +88,3 @@
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
-

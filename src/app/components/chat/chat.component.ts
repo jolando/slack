@@ -1,7 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { User } from 'src/app/pages/login/user';
+import { chatMessage } from 'src/app/models/chatMessage.class';
 
 
 
@@ -14,47 +16,146 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 
 export class ChatComponent implements OnInit {
-  message: string = '';
-  messages = [];
+  messageText: string = '';
+  message: chatMessage;
+  messagesAsJSON = [];
+  messagesAsObject = [];
+  currentUser: User;
+  chatUsers = [];
+  currentChat;
+  chatId;
+  chatType;
+
+  @ViewChild('messages') private myScrollContainer: ElementRef;
 
 
-
-  constructor(private router: Router, public firestore: AngularFirestore) { }
+  constructor(private router: Router, public firestore: AngularFirestore, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
-    this.firestore
-    .collection('channels')
-    .doc('tHvLHahPsEcAJ7qHsHmy')
-    .valueChanges()
-    .subscribe((changes: any) =>{
-      console.log(changes);
-      
-      //this.messages = changes;
-    });
-    
+    this.getRouterParams();
+    this.currentUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    // console.log(this.currentUser.photoUrl);
+
   }
 
-  sendMessage(event?){
-    
-    if(event){
-      event.preventDefault();
-    }
-    
-    if(this.message.replace(/\s/g, '').length){
-      
-      this.message = '';
-      
-    }
-    
+  ngAfterViewInit() {
+    this.scrollToBottom();
   }
 
-  updateFirebase(){
-    this.firestore
-    .collection('channels')
-    .doc('tHvLHahPsEcAJ7qHsHmy')
-    .update({
-      messages: this.message
+  scrollToBottom(): void {
+
+    setTimeout(() => {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }, 200);
+
+
+  }
+
+  getRouterParams() {
+    
+    this.route.paramMap.subscribe(paramMap => {
+      this.chatType = paramMap.get('chatType');
+      this.chatId = paramMap.get('id');
+      console.log(this.chatType);
+      console.log(this.chatId);
+      
+      this.subscribeChat();
+
     })
   }
+
+  subscribeChat() {
+    this.firestore
+      .collection(this.chatType)
+      .doc(this.chatId)
+      .valueChanges()
+      .subscribe((changes: any) => {
+
+        this.currentChat = changes;
+
+        this.getChatUsers();
+        this.messagesAsJSON = this.currentChat.messages ? this.currentChat.messages : [];
+        this.parseAsObject();
+
+      });
+  }
+
+  getChatUsers() {
+    let chatUsers = [];
+    this.currentChat.userIdList.forEach(userId => {
+      console.log(userId);
+      this.firestore
+        .collection("users")
+        .doc(userId)
+        .get()
+        .toPromise()
+        .then((user: any) => {
+          chatUsers.push(user.data())
+
+        })
+    })
+    this.chatUsers = chatUsers;
+
+  }
+
+
+  parseAsObject() {
+    let messagesAsObject = [];
+    console.log(this.messagesAsJSON);
+    
+    if(this.messagesAsJSON){
+      this.messagesAsJSON.forEach(message => {
+        let messageAsObject = new chatMessage(
+          message.messageText,
+          message.sentBy,
+          message.timeStamp
+        )
+        messagesAsObject.push(messageAsObject);
+      
+      });
+  
+      this.messagesAsObject = messagesAsObject;
+     
+    }
+    
+
+  }
+
+  sendMessage(event?) {
+
+    if (event) {
+      event.preventDefault();
+    }
+
+    if (this.messageText.replace(/\s/g, '').length) {
+
+      this.createMessage();
+console.log(this.messagesAsJSON);
+
+      this.messagesAsJSON.push(this.message.toJSON());
+
+      this.updateFirebase();
+      this.messageText = '';
+      this.scrollToBottom();
+    }
+
+  }
+
+  createMessage() {
+    this.message = new chatMessage(
+      this.messageText,
+      this.currentUser.displayName);
+  }
+
+
+
+  updateFirebase() {
+    this.firestore
+      .collection(this.chatType)
+      .doc(this.chatId)
+      .update({
+        messages: this.messagesAsJSON
+      })
+  }
+
 }
