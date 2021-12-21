@@ -57,7 +57,7 @@ export class EditUserDialogComponent implements OnInit, MatFormFieldModule {
               if (url) {
                 console.log(url, 'done');
                 resolve(url);
-                this.updateFirestoreService.updateFirestore('photoUrL', url);
+                this.updateFirestoreService.updateFirestore('photoUrl', url);
               }
             });
           })

@@ -56,8 +56,6 @@ export class ChatComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.chatType = paramMap.get('chatType');
       this.chatId = paramMap.get('id');
-      console.log(this.chatType);
-      console.log(this.chatId);
       
       this.subscribeChat();
 
@@ -130,7 +128,7 @@ export class ChatComponent implements OnInit {
     if (this.messageText.replace(/\s/g, '').length) {
 
       this.createMessage();
-console.log(this.messagesAsJSON);
+      console.log(this.messagesAsJSON);
 
       this.messagesAsJSON.push(this.message.toJSON());
 
