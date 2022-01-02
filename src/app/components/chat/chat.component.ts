@@ -56,8 +56,6 @@ export class ChatComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.chatType = paramMap.get('chatType');
       this.chatId = paramMap.get('id');
-      console.log(this.chatType);
-      console.log(this.chatId);
       
       this.subscribeChat();
 
