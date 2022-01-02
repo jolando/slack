@@ -3,9 +3,9 @@ export class chatMessage {
     sentBy;
     timeStamp;
 
-    constructor(message, name, timeStamp?) {
+    constructor(message, uid, timeStamp?) {
         this.messageText = message;
-        this.sentBy = name;
+        this.sentBy = uid;
         if (timeStamp) {
             this.timeStamp = timeStamp;
         }

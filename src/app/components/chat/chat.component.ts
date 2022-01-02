@@ -130,7 +130,7 @@ export class ChatComponent implements OnInit {
     if (this.messageText.replace(/\s/g, '').length) {
 
       this.createMessage();
-console.log(this.messagesAsJSON);
+      console.log(this.messagesAsJSON);
 
       this.messagesAsJSON.push(this.message.toJSON());
 
@@ -144,7 +144,37 @@ console.log(this.messagesAsJSON);
   createMessage() {
     this.message = new chatMessage(
       this.messageText,
-      this.currentUser.displayName);
+      this.currentUser.uid);
+
+      this.getUserObserveable()
+  }
+
+  resolveName(uid){
+    this.firestore
+     .collection('users')
+     .doc(uid)
+     .valueChanges()
+     .subscribe((changes: any) => {
+       
+     });
+  }
+
+  getUserObserveable(){
+
+    const user$ = this.firestore
+     .collection('users')
+     .doc(this.currentUser.uid)
+     .valueChanges()
+     .subscribe((changes: any) => {
+       console.log(changes);
+       
+       return changes;
+     });
+
+     console.log(user$);
+     
+
+     return user$;
   }
 
 

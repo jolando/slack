@@ -9,7 +9,7 @@
             <img id="profile-img" src='{{ currentUser.photoUrl }}' alt="profile-img">
             <div class="message">
                 <div class="message-info">
-                    <span class="name">{{message.sentBy}}</span>
+                    <span class="name">{{resolveName(message.sentBy)}}</span>
                     <span class="time">{{message.getHours()}}:{{message.getMinutes()}}Uhr</span>
                 </div>
 
